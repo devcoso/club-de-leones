@@ -15,6 +15,7 @@ npm run build
 ```
 # PARA BACKEND
 - Instalar [php 8.3.2](https://www.php.net/releases/8_3_2.php) y [composer 2.8.1](https://getcomposer.org/download/)
+  + Recuerda modificar tu php.ini para poder usar mysql, postgress, etc o cambiar otras propiedades.
 - Acceder a la ruta raiz de la api y instalar dependencias con: 
 ```bash
 cd api-club-de-leones
@@ -22,6 +23,7 @@ composer install
 ```
 - Usa .env.example para crear un archivo llamado .env, donde colocarás tus variables de entorno para tu db y mail service
 - Para iniciar tu ambiente, y cada vez que haya cambios en migraciones recuerda correr.
+  + Si hay un error de conexión con tu db, puede ser un error en tus variables de entorno, credenciales o faltas de drivers en php.ini.
 ```bash
 php artisan migrate
 ```
