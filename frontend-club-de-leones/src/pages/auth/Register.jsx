@@ -6,11 +6,13 @@ import { Button } from "primereact/button"
 import { Divider } from "primereact/divider"
 import { InputMask } from 'primereact/inputmask';
 import { Calendar } from 'primereact/calendar';
+import { Dropdown } from 'primereact/dropdown';
 
 import { Form, Link } from "react-router-dom"
 
 function Login() {
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
   const footer = (
       <>
           <Divider />
@@ -27,8 +29,8 @@ function Login() {
 
   return (
     <div className="md:h-full">
-      <h1 className="text-primary font-bold text-center text-4xl md:h-1/6 content-center">Resgistro</h1>
-      <Form className="flex flex-col items-center gap-6 md:overflow-y-auto md:h-5/6 md:p-5">
+      <h1 className="text-primary font-bold text-center text-4xl md:h-1/6 content-center">Registro</h1>
+      <Form className="flex flex-col items-center gap-6 md:overflow-y-auto my-10 md:my-0 md:h-5/6 md:p-5">
         <InputText 
           type="text"
           className="w-4/5"
@@ -44,17 +46,29 @@ function Login() {
           className="w-4/5"
           placeholder="Apellido materno" 
         />
+        <Calendar 
+          style={{width: '80%', display: 'block'}}
+          inputClassName="w-full"
+          placeholder="Fecha de nacimiento"
+          maxDate={new Date()}
+        />
+        < Dropdown
+          style={{width: '80%', display: 'flex'}}
+
+          optionLabel="name"
+          optionValue="id"
+          placeholder="Sexo"
+          options={[
+            {id:1, name: 'Masculino' },
+            {id:2, name: 'Femenino' }
+          ]}
+        />
         <InputMask 
           style={{width: '80%', display: 'block'}}
           className="w-4/5"
           placeholder="Número de teléfono"
           mode="decimal"
           mask="99-99999999" 
-        />
-        <Calendar 
-          style={{width: '80%', display: 'block'}}
-          inputClassName="w-full"
-          placeholder="Fecha de nacimiento"
         />
         <InputText 
           type="email"
@@ -68,9 +82,17 @@ function Login() {
           className="w-full"
           inputClassName="w-full"
           value={password}
-          
           footer={footer}
           onChange={(e) => setPassword(e.target.value)}
+        />
+        <Password 
+          placeholder="Confirmar contraseña"
+          toggleMask
+          style={{width: '80%', display: 'block'}}
+          className="w-full"
+          inputClassName="w-full"
+          value={password2}
+          onChange={(e) => setPassword2(e.target.value)}
         />  
         <Button 
           label="Regístrate" 
