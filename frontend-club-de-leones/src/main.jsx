@@ -22,6 +22,11 @@ import AdminLayout from './layouts/AdminLayout';
   import Register from './pages/auth/Register';
   import ForgotPassword from './pages/auth/ForgotPassword';
 
+//Loaders
+
+//Actions
+  //Auth
+  import { action as registerAction } from './pages/auth/Register';
 
 
 const router = createBrowserRouter([
@@ -49,7 +54,8 @@ const router = createBrowserRouter([
       },
       {
         path:"register",
-        element: <Register />
+        element: <Register />,
+        action: registerAction,
       },
       {
         path:"forgot-password",

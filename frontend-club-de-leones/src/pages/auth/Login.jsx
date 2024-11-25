@@ -7,15 +7,19 @@ import { Divider } from "primereact/divider"
 
 import { Form, Link } from "react-router-dom"
 
+export async function action() {
+  return null
+}
+
 function Login() {
 
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
 
   return (
     <div>
       <h1 className="text-primary font-bold text-center text-4xl my-2">Iniciar Sesión</h1>
-      <Form className="flex flex-col items-center my-5 gap-6">
+      <Form method="POST" className="flex flex-col items-center my-5 gap-6">
         <InputText 
           type="email" 
           className="w-4/5"
@@ -32,6 +36,7 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />  
         <Button 
+          inputMode="submit"
           label="Iniciar Sesión" 
           className="w-4/5 p-button-primary bg-primary hover:bg-blue-800"
         />
