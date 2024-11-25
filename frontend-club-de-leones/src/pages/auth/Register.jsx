@@ -53,7 +53,14 @@ export async function action({request}) {
       return errores
   }
   const datos = {
-
+    "name": name,
+    "paternal_last_name": paternalLastName,
+    "maternal_last_name": maternalLastName,
+    "birthdate": birthdate,
+    "sex": sex,
+    "phone_number": phoneNumber,
+    "email": email,
+    "password": password,
   }
   const respuesta = await register(datos)
   console.log(respuesta)
