@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('paternal_last_name');
             $table->string('maternal_last_name');
             $table->string('phone_number');
-            $table->date('birtdate');
+            $table->date('birthdate');
             $table->smallInteger('sex');
             $table->string('tshirt-size')->nullable();
             $table->smallInteger('type')->default(1);
@@ -33,7 +33,7 @@ return new class extends Migration
             $table->dropColumn('paternal_last_name');
             $table->dropColumn('maternal_last_name');
             $table->dropColumn('phone_number');
-            $table->dropColumn('birtdate');
+            $table->dropColumn('birthdate');
             $table->dropColumn('sex');
             $table->dropColumn('tshirt-size');
             $table->dropColumn('type');

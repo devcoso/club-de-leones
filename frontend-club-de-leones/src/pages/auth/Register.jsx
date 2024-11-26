@@ -8,10 +8,9 @@ import { Password } from "primereact/password"
 import { Button } from "primereact/button"
 import { Divider } from "primereact/divider"
 import { InputMask } from 'primereact/inputmask';
-import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
 
-import { Form, Link, useActionData } from "react-router-dom"
+import { Form, Link, redirect, useActionData } from "react-router-dom"
 
 export async function action({request}) {
   const formData = await request.formData()
@@ -63,12 +62,14 @@ export async function action({request}) {
     "password": password,
   }
   const respuesta = await register(datos)
-  console.log(respuesta)
-  // if(!respuesta.status){  
-  //     return [respuesta.mensaje]
-  // }
+  if(respuesta.status == 201) {  
+    return redirect('/auth/login')
+  }
 
-  return null
+  // Formatear errores
+  const errors = Object.values(respuesta.data.errors).flat()
+
+  return errors
 }
 
 function Register() {
@@ -106,7 +107,9 @@ function Register() {
           <p>{error}</p>
         )}
       }) 
+      
       if(messages.current){
+        messages.current.clear();
         messages.current.show(msg);
       }
     }
@@ -141,11 +144,12 @@ function Register() {
           onChange={(e) => setMaternalLastName(e.target.value)}
           name="maternal_last_name"
         />
-        <Calendar 
+        <InputMask 
           style={{width: '80%', display: 'block'}}
-          inputClassName="w-full"
+          className="w-4/5"
           placeholder="Fecha de nacimiento"
-          maxDate={new Date()}
+          slotChar="yyyy-mm-dd"
+          mask="9999-99-99" 
           value={birthdate}
           onChange={(e) => setBirthdate(e.target.value)}
           name="birthdate"
@@ -169,7 +173,7 @@ function Register() {
           className="w-4/5"
           placeholder="Número de teléfono"
           mode="decimal"
-          mask="99-99999999" 
+          mask="9999999999" 
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
           name="phone_number"

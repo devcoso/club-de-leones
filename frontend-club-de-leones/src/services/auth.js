@@ -9,7 +9,11 @@ export async function register(datos){
                 'Content-Type' : 'application/json'
             }
         })
-        return await respuesta.json()
+        const data = await respuesta.json()
+        return {
+            status: respuesta.status,
+            data
+        }
     } catch (error) {
         console.log(error);
         return {error: true, message: 'Error al conectar con el servidor'}
