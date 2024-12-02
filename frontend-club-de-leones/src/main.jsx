@@ -23,8 +23,9 @@ import AdminLayout from './layouts/AdminLayout';
   import ForgotPassword from './pages/auth/ForgotPassword';
 
 //Loaders
-  //Auth
   import { loader as mainLoader } from './layouts/MainLayout';
+  //Auth
+  import { loader as authLoader } from './layouts/AuthLayout';
 
 //Actions
   //Auth
@@ -66,7 +67,8 @@ const router = createBrowserRouter([
         path:"forgot-password",
         element: <ForgotPassword />
       }
-    ]
+    ],
+    loader: authLoader
   },
   {
     path: "admin",

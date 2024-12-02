@@ -1,6 +1,17 @@
-import { Outlet } from "react-router-dom"
+import { me } from "../services/auth"
+
+import { Outlet, redirect } from "react-router-dom"
 import { Link } from "react-router-dom"
 import logo from "../assets/logo.png"
+
+export async function loader() {
+  const response = await me()
+  if(response.status === 200) {
+    return redirect('/')
+  }
+  return null
+}
+
 
 function AuthLayout() {
   return (
