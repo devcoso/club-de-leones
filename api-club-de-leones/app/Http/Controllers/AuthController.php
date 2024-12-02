@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
@@ -65,6 +66,28 @@ class AuthController extends Controller
         $request->user()->currentAccessToken()->delete();
 
         return response()->json(['message' => 'Sesión cerrada correctamente']);
+    }
+
+    public function forgotPassword(Request $request){
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+        if($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()->getMessages()
+            ], 406);
+        }
+
+        $user = User::where('email', $request->email)->first();
+        if(!$user){
+            return response()->json([
+                'errors' => ['El correo electrónico no está registrado']
+            ], 406);
+        }
+        $status = Password::sendResetLink($request->only('email'));
+        return $status === Password::RESET_LINK_SENT
+        ? response()->json(['data' => __($status)], 200)
+        : response()->json(['errors' => __($status)], 400);
     }
 
     public function me(Request $request)

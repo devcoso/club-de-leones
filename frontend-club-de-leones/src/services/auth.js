@@ -16,7 +16,7 @@ export async function register(datos){
         }
     } catch (error) {
         console.log(error);
-        return {error: true, message: 'Error al conectar con el servidor'}
+        return {status: 500, message: ['Error al conectar con el servidor']}
     }
 }
 
@@ -38,7 +38,7 @@ export async function login(datos){
         }
     } catch (error) {
         console.log(error);
-        return {error: true, message: 'Error al conectar con el servidor'}
+        return {status: 500, data: 'Error al conectar con el servidor'}
     }
 }
 
@@ -59,12 +59,38 @@ export async function logout(){
     }
     catch (error) {
         console.log(error);
-        return {error: true, message: 'Error al conectar con el servidor'}
+        return {error: 500, data: 'Error al conectar con el servidor'}
+    }
+}
+
+export async function forgotPassword(params) {
+    try {
+        const url = import.meta.env.VITE_API_URL + '/auth/forgot-password'
+        const respuesta = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(params),
+            headers: {
+                'Content-Type' : 'application/json',
+            },
+        })
+        const data = await respuesta.json()
+        return {
+            status: respuesta.status,
+            data
+        }
+    }
+    catch (error) {
+        console.log(error);
+        return {error: 500, data: 'Error al conectar con el servidor'}
     }
 }
 
 export async function me(){
     try {
+        const token = localStorage.getItem('token') ?? null;
+        if (!token) {
+            return {status: 406, data: 'No hay token'}
+        }
         const url = import.meta.env.VITE_API_URL + '/auth/me'
         const respuesta = await fetch(url, {
             method: 'GET',
@@ -81,6 +107,6 @@ export async function me(){
     }
     catch (error) {
         console.log(error);
-        return {error: true, message: 'Error al conectar con el servidor'}
+        return {error: 500, data: 'Error al conectar con el servidor'}
     }
 }
