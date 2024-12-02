@@ -23,10 +23,13 @@ import AdminLayout from './layouts/AdminLayout';
   import ForgotPassword from './pages/auth/ForgotPassword';
 
 //Loaders
+  //Auth
+  import { loader as mainLoader } from './layouts/MainLayout';
 
 //Actions
   //Auth
   import { action as registerAction } from './pages/auth/Register';
+  import { action as loginAction } from './pages/auth/Login';
 
 
 const router = createBrowserRouter([
@@ -39,6 +42,7 @@ const router = createBrowserRouter([
         element: <p>Home</p>
       }
     ],
+    loader: mainLoader
   },
   {
     path: "auth",
@@ -50,7 +54,8 @@ const router = createBrowserRouter([
       },
       {
         path:"login",
-        element: <Login />
+        element: <Login />,
+        action: loginAction,
       },
       {
         path:"register",

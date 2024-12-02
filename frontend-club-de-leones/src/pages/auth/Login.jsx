@@ -1,20 +1,62 @@
-import { useState } from "react"
+import { login } from "../../services/auth";
 
+import { useState, useEffect, useRef } from "react"
+
+import { Messages } from 'primereact/messages';
 import { InputText } from "primereact/inputtext"
 import { Password } from "primereact/password"
 import { Button } from "primereact/button"
 import { Divider } from "primereact/divider"
 
-import { Form, Link } from "react-router-dom"
+import { Form, Link, redirect, useActionData } from "react-router-dom"
 
-export async function action() {
-  return null
+export async function action({request}) {
+
+  let errores = []
+  const formData = await request.formData()
+  const email = formData.get('email')
+  const password = formData.get('password')
+
+  if(!email || !password) {
+    errores.push('Las credenciales son obligatorias')
+    return errores
+  }
+
+  const response = await login({email, password})
+  console.log(response);
+  if(response.status === 200) {
+    // Guardar el token en la sesión
+    localStorage.setItem('token', response.data.token)
+    return redirect('/')
+  }
+
+  return [response.data.errores]
 }
 
 function Login() {
 
+  const errores = useActionData();
+  const messages = useRef(null);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+
+  useEffect(() => {
+    if(errores?.length) {
+      const msg = errores.map((error) => {
+        return { severity: 'error', sticky: true, content :(
+          <p>{error}</p>
+        )}
+      }) 
+      
+      if(messages.current){
+        messages.current.clear();
+        messages.current.show(msg);
+      }
+    }
+  }
+  , [errores])
 
   return (
     <div>
@@ -24,6 +66,9 @@ function Login() {
           type="email" 
           className="w-4/5"
           placeholder="Correo electrónico" 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          name="email"
         />
         <Password 
           placeholder="Contraseña"
@@ -34,7 +79,12 @@ function Login() {
           feedback={false}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          name="password"
         />  
+        <Messages ref={messages} 
+          className="w-4/5 font-text-sm"
+          style={{ color: "blue", fontSize: "0.8rem" }} 
+        />
         <Button 
           inputMode="submit"
           label="Iniciar Sesión" 
