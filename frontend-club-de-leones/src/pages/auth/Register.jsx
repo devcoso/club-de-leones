@@ -3,6 +3,7 @@ import { register } from "../../services/auth";
 import { useState, useRef, useEffect } from "react"
 
 import { Messages } from 'primereact/messages';
+import { FloatLabel } from 'primereact/floatlabel';
 import { InputText } from "primereact/inputtext"
 import { Password } from "primereact/password"
 import { Button } from "primereact/button"
@@ -81,7 +82,7 @@ function Register() {
   const [paternalLastName, setPaternalLastName] = useState('');
   const [maternalLastName, setMaternalLastName] = useState('');
   const [birthdate, setBirthdate] = useState('');
-  const [sex, setSex] = useState(0);
+  const [sex, setSex] = useState(1);
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -120,72 +121,88 @@ function Register() {
     <div className="md:h-full">
       <h1 className="text-primary font-bold text-center text-4xl md:h-1/6 content-center">Registro</h1>
       <Form method="POST" className="flex flex-col items-center gap-6 md:overflow-y-auto my-10 md:my-0 md:h-5/6 md:p-5">
-        <InputText 
-          type="text"
-          className="w-4/5"
-          placeholder="Nombre" 
-          value={setname}
-          onChange={(e) => setName(e.target.value)}
-          name="name"
-        />
-        <InputText 
-          type="text"
-          className="w-4/5"
-          placeholder="Apellido paterno"
-          value={paternalLastName}
-          onChange={(e) => setPaternalLastName(e.target.value)} 
-          name="paternal_last_name"
-        />
-        <InputText 
-          type="text"
-          className="w-4/5"
-          placeholder="Apellido materno" 
-          value={maternalLastName}
-          onChange={(e) => setMaternalLastName(e.target.value)}
-          name="maternal_last_name"
-        />
-        <InputMask 
-          style={{width: '80%', display: 'block'}}
-          className="w-4/5"
-          placeholder="Fecha de nacimiento"
-          slotChar="yyyy-mm-dd"
-          mask="9999-99-99" 
-          value={birthdate}
-          onChange={(e) => setBirthdate(e.target.value)}
-          name="birthdate"
-        />
-        < Dropdown
-          style={{width: '80%', display: 'flex'}}
-
-          optionLabel="name"
-          optionValue="id"
-          placeholder="Sexo"
-          options={[
-            {id:1, name: 'Masculino' },
-            {id:2, name: 'Femenino' }
-          ]}
-          value={sex}
-          onChange={(e) => setSex(e.target.value)}
-          name="sex"
-        />
-        <InputMask 
-          style={{width: '80%', display: 'block'}}
-          className="w-4/5"
-          placeholder="Número de teléfono"
-          mode="decimal"
-          mask="9999999999" 
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          name="phone_number"
-        />
-        <InputText 
-          type="email"
-          className="w-4/5"
-          placeholder="Correo electrónico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)} 
-          name="email"
-        />
+        <FloatLabel className="w-4/5">
+          <InputText 
+            id="name"
+            className="w-full"
+            type="text" 
+            value={setname}
+            onChange={(e) => setName(e.target.value)}
+            name="name"
+          />  
+          <label htmlFor="name" className=" text-gray-500">Nombre</label>
+        </FloatLabel>
+        <FloatLabel className="w-4/5">
+          <InputText
+            id="paternal_last_name" 
+            type="text"
+            className="w-full"
+            value={paternalLastName}
+            onChange={(e) => setPaternalLastName(e.target.value)} 
+            name="paternal_last_name"
+          />
+          <label htmlFor="paternal_last_name" className=" text-gray-500">Apellido Paterno</label>
+        </FloatLabel>
+        <FloatLabel className="w-4/5">
+          <InputText 
+            id="maternal_last_name"
+            type="text"
+            className="w-full"
+            value={maternalLastName}
+            onChange={(e) => setMaternalLastName(e.target.value)}
+            name="maternal_last_name"
+          />
+          <label htmlFor="maternal_last_name" className=" text-gray-500">Apellido Materno</label>
+        </FloatLabel>
+        <FloatLabel className="w-4/5">
+          <InputMask 
+            id="birthdate"
+            style={{width: '100%', display: 'block'}}
+            slotChar="yyyy-mm-dd"
+            mask="9999-99-99" 
+            value={birthdate}
+            onChange={(e) => setBirthdate(e.target.value)}
+            name="birthdate"
+          />
+          <label htmlFor="birthdate" className=" text-gray-500">Fecha de Nacimiento</label>
+        </FloatLabel>
+        <FloatLabel className="w-4/5">
+          <Dropdown
+            id="sex"
+            style={{width: '100%', display: 'flex'}}
+            optionLabel="name"
+            optionValue="id"
+            options={[
+              {id:1, name: 'Masculino' },
+              {id:2, name: 'Femenino' }
+            ]}
+            value={sex}
+            onChange={(e) => setSex(e.target.value)}
+            name="sex"
+          />
+          <label htmlFor="sex" className=" text-gray-500">Sexo</label>
+        </FloatLabel>
+        <FloatLabel className="w-4/5">
+          <InputMask 
+            id="phone_number"
+            style={{width: '100%', display: 'block'}}
+            mask="9999999999" 
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            name="phone_number"
+          />
+          <label htmlFor="phone_number" className=" text-gray-500">Número de teléfono</label>
+        </FloatLabel>
+        <FloatLabel className="w-4/5">
+          <InputText 
+            type="email"
+            className="w-full"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)} 
+            name="email"
+          />
+          <label htmlFor="email" className=" text-gray-500">Correo electrónico</label>
+        </FloatLabel>
         <Password 
           placeholder="Contraseña"
           toggleMask
