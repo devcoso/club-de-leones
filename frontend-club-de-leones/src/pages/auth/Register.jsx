@@ -93,10 +93,10 @@ function Register() {
         <Divider />
         <p className="mt-2">Te sugerimos al menos incluir:</p>
         <ul className="pl-2 ml-2 mt-0 line-height-3 list-disc">
+            <li className="text-red-800 font-bold">8 caracteres</li>
             <li>Una letra minúscula</li>
             <li>Una letra mayúscula</li>
             <li>Un número</li>
-            <li>8 caracteres</li>
         </ul>
     </>
   );

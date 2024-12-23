@@ -86,8 +86,37 @@ class AuthController extends Controller
         }
         $status = Password::sendResetLink($request->only('email'));
         return $status === Password::RESET_LINK_SENT
-        ? response()->json(['data' => __($status)], 200)
-        : response()->json(['errors' => __($status)], 400);
+        ? response()->json(['messages' => "Se ha enviado un correo para reestablecer tu contraseña"], 200)
+        : response()->json(['errors' => "Hubo un problema, intenta más tarde"], 400);
+        // ? response()->json(['messages' => __($status)], 200)
+        // : response()->json(['errors' => __($status)], 400);
+    }
+
+    public function resetPassword(Request $request){
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'token' => 'required|string',
+            'password' => 'required|string',
+        ]);
+        
+        if($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()->getMessages()
+            ], 406);
+        }
+
+        $user = User::where('email', $request->email)->first();
+        
+        $status = Password::reset($request->only('email', 'password', 'token'), function($user, $password){
+            $user->password = $password;
+            $user->save();
+        });
+
+        return $status === Password::PASSWORD_RESET
+        ? response()->json(['messages' => "Contraseña reestablecida correctamente"], 200)
+        : response()->json(['errors' => "Token no válido o expirado"], 400);
+        //? response()->json(['messages' => __($status)], 200)
+        //: response()->json(['errors' => __($status)], 400);
     }
 
     public function me(Request $request)

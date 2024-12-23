@@ -20,41 +20,40 @@ export async function action({request}) {
       errores.push('Correo no válido')
   }
   if(Object.keys(errores).length) {
-      return errores
+      return {status: 0, data: errores}
   }
   const response = await forgotPassword({email})
   if(response.status == 200) {  
     console.log(response); 
-    return null;
-    //return redirect('/auth/login')
+    return {status:1, data: [response.data.messages]}
   }
-
-  return [response.data.errores]
+  console.log(response);
+  return {status: 0, data: [response.data.errors]}
 }
 
 function ForgotPassword() {
 
-  const errores = useActionData();
+  const data = useActionData();
   const messages = useRef(null);
 
   const [email, setEmail] = useState('');
 
 
   useEffect(() => {
-    if(errores?.length) {
-      const msg = errores.map((error) => {
-        return { severity: 'error', sticky: true, content :(
+    if(data?.data.length) {
+      const msg = data.data.map((error) => {
+        return { severity: data.status  ? 'success' : 'error', sticky: true, content :(
           <p>{error}</p>
         )}
       }) 
-      
+      console.log(data); 
       if(messages.current){
         messages.current.clear();
         messages.current.show(msg);
       }
     }
   }
-  , [errores])
+  , [data])
 
 
   return (

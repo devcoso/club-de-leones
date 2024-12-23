@@ -1,23 +1,103 @@
+import { resetPassword } from "../../services/auth";
+
 import { useState, useEffect, useRef } from "react"
 
 import { Messages } from 'primereact/messages';
+import { InputText } from "primereact/inputtext"
 import { Password } from "primereact/password"
 import { Button } from "primereact/button"
 import { Divider } from "primereact/divider"
 
-import { Form, Link } from "react-router-dom"
+import { Form, Link, useActionData, useParams } from "react-router-dom"
 
-function ForgotPassword() {
 
+export async function action({request}) {
+
+  const formData = await request.formData()
+
+  const email = formData.get('email')
+  const password = formData.get('password')
+  const password2 = formData.get('password2')
+  const token = formData.get('token')
+  let regex = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+ //Validación
+  let errores = []
+  if(!regex.test(email)){
+    errores.push('Correo no válido')
+}
+  if(password.length < 8) {
+      errores.push('La contraseña debe tener al menos 8 caracteres')
+  }
+  if(password != password2) {
+      errores.push('Las contraseñas no coinciden')
+  }
+  if(Object.keys(errores).length) {
+      return {status: false, data: [errores]}
+  }
+
+  const response = await resetPassword({email, token, password}) 
+  if(response.status == 200) {  
+    console.log(response); 
+    return {status:1, data: [response.data.messages]}
+  }
+  console.log(response);
+  return {status: 0, data: [response.data.errors]}
+
+  return {status: false, data: errors}
+}
+
+
+function ResetPassword() {
+
+  const { token } = useParams();
+  const data = useActionData()
   const messages = useRef(null)
 
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
+
+  const footer = (
+    <>
+        <Divider />
+        <p className="mt-2">Te sugerimos al menos incluir:</p>
+        <ul className="pl-2 ml-2 mt-0 line-height-3 list-disc">
+            <li className="text-red-800 font-bold">8 caracteres</li>
+            <li>Una letra minúscula</li>
+            <li>Una letra mayúscula</li>
+            <li>Un número</li>
+        </ul>
+    </>
+  );
+
+  useEffect(() => {
+    if(data?.data.length) {
+      const msg = data.data.map((error) => {
+        return { severity: data.status  ? 'success' : 'error', sticky: true, content :(
+          <p>{error}</p>
+        )}
+      }) 
+      console.log(data); 
+      if(messages.current){
+        messages.current.clear();
+        messages.current.show(msg);
+      }
+    }
+  }
+  , [data])
 
   return (
     <div>
       <h1 className="text-primary font-bold text-center text-4xl my-2">Crea una contraseña</h1>
-      <Form className="flex flex-col items-center my-5 gap-6">
+      <Form method="POST" className="flex flex-col items-center my-5 gap-6">
+        <InputText 
+          type="email" 
+          className="w-4/5"
+          placeholder="Correo electrónico" 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+        />
         <Password 
           placeholder="Contraseña"
           toggleMask
@@ -40,6 +120,7 @@ function ForgotPassword() {
           name="password2"
           feedback={false}
         />  
+        <input type="hidden" name="token" value={token} />
         <Messages ref={messages} 
           className="w-4/5 font-text-sm"
           style={{ color: "blue", fontSize: "0.8rem" }} 
@@ -58,4 +139,4 @@ function ForgotPassword() {
   )
 }
 
-export default ForgotPassword
+export default ResetPassword

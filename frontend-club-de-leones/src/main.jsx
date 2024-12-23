@@ -21,10 +21,11 @@ import AdminLayout from './layouts/AdminLayout';
   import Login from './pages/auth/Login';
   import Register from './pages/auth/Register';
   import ForgotPassword from './pages/auth/ForgotPassword';
+  import ResetPassword from './pages/auth/ResetPassword';
 
 //Loaders
+  //Layouts
   import { loader as mainLoader } from './layouts/MainLayout';
-  //Auth
   import { loader as authLoader } from './layouts/AuthLayout';
 
 //Actions
@@ -32,6 +33,7 @@ import AdminLayout from './layouts/AdminLayout';
   import { action as registerAction } from './pages/auth/Register';
   import { action as loginAction } from './pages/auth/Login';
   import { action as forgotPasswordAction } from './pages/auth/ForgotPassword';
+  import { action as resetPasswordAction } from './pages/auth/ResetPassword';
 
 
 const router = createBrowserRouter([
@@ -68,6 +70,11 @@ const router = createBrowserRouter([
         path:"forgot-password",
         element: <ForgotPassword />,
         action: forgotPasswordAction,
+      },
+      {
+        path:"reset-password/:token",
+        element: <ResetPassword />,
+        action: resetPasswordAction,
       }
     ],
     loader: authLoader
