@@ -22,6 +22,7 @@ return new class extends Migration
             $table->smallInteger("min_age");
             $table->smallInteger("max_age");
             $table->smallInteger("max_participants");
+            $table->foreignId('branch_id')->constrained("branches");
             $table->foreignId('category_id')->constrained("event_category");
             $table->foreignId('created_by')->constrained("users");
             $table->timestamps();
