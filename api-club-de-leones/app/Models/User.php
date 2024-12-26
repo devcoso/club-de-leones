@@ -15,6 +15,12 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasApiTokens;
 
+    const TYPE_MAP = [
+        1 => 'Miembro',
+        2 => 'Administrador',
+        3 => 'Instructor',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -61,6 +67,15 @@ class User extends Authenticatable
     {
         return "{$this->name} {$this->paternal_last_name} {$this->maternal_last_name}";
     }
+
+    /**
+     * Get the user's type.
+    */
+    public function getTypeAttribute(): string
+    {
+        return self::TYPE_MAP[$this->user_type];
+    }
+
 
     public function sendPasswordResetNotification($token)
     {

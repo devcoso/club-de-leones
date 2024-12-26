@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('phone_number');
             $table->date('birthdate');
             $table->smallInteger('sex');
-            $table->string('tshirt-size')->nullable();
-            $table->smallInteger('type')->default(1);
+            $table->string('tshirt_size')->nullable();
+            $table->smallInteger('user_type')->default(1);
         });
     }
 
@@ -35,8 +35,8 @@ return new class extends Migration
             $table->dropColumn('phone_number');
             $table->dropColumn('birthdate');
             $table->dropColumn('sex');
-            $table->dropColumn('tshirt-size');
-            $table->dropColumn('type');
+            $table->dropColumn('tshirt_size');
+            $table->dropColumn('user_type');
         });
     }
 };
