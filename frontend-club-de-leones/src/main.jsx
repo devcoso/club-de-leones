@@ -44,6 +44,8 @@ import AdminLayout from './layouts/AdminLayout';
   import { action as loginAction } from './pages/auth/Login';
   import { action as forgotPasswordAction } from './pages/auth/ForgotPassword';
   import { action as resetPasswordAction } from './pages/auth/ResetPassword';
+  //Admin
+  import { action as adminEventTypesAction } from './pages/admin/EventTypes';
 
 
 const router = createBrowserRouter([
@@ -100,7 +102,8 @@ const router = createBrowserRouter([
       {
         path:"event-types",
         element: <AdminEventTypes />,
-        loader: adminEventTypesLoader
+        loader: adminEventTypesLoader,
+        action: adminEventTypesAction
       },
       {
         path:"branches",

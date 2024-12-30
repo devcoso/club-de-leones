@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\EventType;
+use Illuminate\Support\Facades\Validator;
 
 class EventTypeController extends Controller
 {
@@ -16,15 +17,23 @@ class EventTypeController extends Controller
     }
 
     public function store(Request $request) {
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required'
-        ]);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'description' => 'required|string'
+        ],);
 
-        $category = EventType::create($request->all());
+        if($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()->getMessages()
+            ], 406);
+        }
+
+        $validated = $validator->validated();
+
+        $category = EventType::create($validated);
 
         return response()->json([
-            'message' => 'Category created',
+            'message' => 'Tipo de evento ' . $category->name . ' creado',
             'category' => $category
         ], 201);
     }
@@ -47,17 +56,23 @@ class EventTypeController extends Controller
         $category = EventType::find($id);
 
         if ($category) {
-            $request->validate([
-                'name' => 'required',
-                'description' => 'required'
-            ]);
-
-            $category->name = $request->name;
-            $category->description = $request->description;
-            $category->save();
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string',
+                'description' => 'required|string'
+            ],);
+    
+            if($validator->fails()) {
+                return response()->json([
+                    'errors' => $validator->errors()->getMessages()
+                ], 406);
+            }
+    
+            $validated = $validator->validated();
+            
+            $category->update($validated);
 
             return response()->json([
-                'message' => 'Category updated',
+                'message' => 'Tipo de evento ' . $category->name . ' actualizado',
                 'category' => $category
             ]);
         }

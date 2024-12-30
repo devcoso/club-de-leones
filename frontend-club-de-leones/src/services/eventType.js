@@ -15,7 +15,7 @@ export async function getAll() {
         }
     } catch (error) {
         console.log(error);
-        return {status: 500, data: {errors: 'Error al conectar con el servidor'}}
+        return {status: 500, data: {errors: ['Error al conectar con el servidor']}}
     }
 }
 
@@ -26,7 +26,8 @@ export async function create(name = '', description = '') {
             method: 'POST',
             body: JSON.stringify({name, description}),
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${localStorage.getItem('token')}`
             }
         })
         const data = await respuesta.json()
@@ -36,18 +37,19 @@ export async function create(name = '', description = '') {
         }
     } catch (error) {
         console.log(error);
-        return {status: 500, data: {errors: 'Error al conectar con el servidor'}}
+        return {status: 500, data: {errors: ['Error al conectar con el servidor']}}
     }
 }
 
 export async function update(id, name = '', description = '') {
     try {
-        const url = import.meta.env.VITE_API_URL + `/admin/event-type'/${id}`
+        const url = import.meta.env.VITE_API_URL + `/admin/event-type/${id}`
         const respuesta = await fetch(url, {
             method: 'PUT',
             body: JSON.stringify({name, description}),
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${localStorage.getItem('token')}`
             }
         })
         const data = await respuesta.json()
@@ -57,15 +59,19 @@ export async function update(id, name = '', description = '') {
         }
     } catch (error) {
         console.log(error);
-        return {status: 500, data: {errors: 'Error al conectar con el servidor'}}
+        return {status: 500, data: {errors: ['Error al conectar con el servidor']}}
     }
 }
 
 export async function remove(id) {
     try {
-        const url = import.meta.env.VITE_API_URL + `/admin/event-type'/${id}`
+        const url = import.meta.env.VITE_API_URL + `/admin/event-type/${id}`
         const respuesta = await fetch(url, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${localStorage.getItem('token')}`
+            }
         })
         const data = await respuesta.json()
         return {
@@ -74,6 +80,6 @@ export async function remove(id) {
         }
     } catch (error) {
         console.log(error);
-        return {status: 500, data: {errors: 'Error al conectar con el servidor'}}
+        return {status: 500, data: {errors: ['Error al conectar con el servidor']}}
     }
 }
