@@ -236,7 +236,7 @@ function Register() {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <Link to="/auth/forgot-password" className="text-primary">¿Olvidaste tu contraseña?</Link>
           <Divider layout="vertical">o</Divider>
-          <Link to="/auth/login" className="text-primary">Inicia Sesión</Link>
+          <Link to="/auth" className="text-primary">Inicia Sesión</Link>
         </div>
       </Form>
 

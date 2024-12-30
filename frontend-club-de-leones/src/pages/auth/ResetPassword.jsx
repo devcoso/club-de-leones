@@ -130,7 +130,7 @@ function ResetPassword() {
           className="w-4/5 p-button-primary bg-primary hover:bg-blue-800"
         />
         <div className="flex flex-col md:flex-row justify-evenly items-center">
-          <Link to="/auth/login" className="text-primary">Inicia Sesion</Link>
+          <Link to="/auth" className="text-primary">Inicia Sesion</Link>
           <Divider layout="vertical">o</Divider>
           <Link to="/auth/register" className="text-primary">Regístrate</Link>
         </div>

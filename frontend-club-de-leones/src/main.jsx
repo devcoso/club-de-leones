@@ -7,7 +7,7 @@ import {
   redirect,
   RouterProvider,
 } from "react-router-dom";
-
+import 'primeicons/primeicons.css';
 import { PrimeReactProvider } from "primereact/api";
 import Tailwind from 'primereact/passthrough/tailwind';
 
@@ -17,16 +17,24 @@ import AuthLayout from './layouts/AuthLayout';
 import AdminLayout from './layouts/AdminLayout';
 
 //Pages
+  import Loader from './pages/Loader';
+  import Page404 from './pages/Page404';
   //Auth
   import Login from './pages/auth/Login';
   import Register from './pages/auth/Register';
   import ForgotPassword from './pages/auth/ForgotPassword';
   import ResetPassword from './pages/auth/ResetPassword';
+  //Admin
+  import AdminHome from './pages/admin/Home';
+  import AdminEvents from './pages/admin/Events';
+  import AdminBranches from './pages/admin/Branches';
+  import AdminUsers from './pages/admin/Users';
 
 //Loaders
   //Layouts
   import { loader as mainLoader } from './layouts/MainLayout';
   import { loader as authLoader } from './layouts/AuthLayout';
+  import { loader as adminLoader } from './layouts/AdminLayout';
 
 //Actions
   //Auth
@@ -54,10 +62,6 @@ const router = createBrowserRouter([
     children: [
       {
         index:true,
-        
-      },
-      {
-        path:"login",
         element: <Login />,
         action: loginAction,
       },
@@ -84,10 +88,23 @@ const router = createBrowserRouter([
     element: <AdminLayout />,
     children: [
       {
-        path:"login",
-        element: <Login />
+        index:true,
+        element: <AdminHome />
+      },
+      {
+        path:"events",
+        element: <AdminEvents />
+      },
+      {
+        path:"branches",
+        element: <AdminBranches />
+      },
+      {
+        path:"users",
+        element: <AdminUsers />
       }
-    ]
+    ],
+    loader: adminLoader
   },
 ]);
 
@@ -97,7 +114,7 @@ createRoot(document.getElementById('root')).render(
     <PrimeReactProvider value={{unstyled:true, pt: Tailwind}}>
       <RouterProvider
         router={router}
-        fallbackElement={<i className="pi pi-spin pi-spinner" style={{ fontSize: '2rem' }}></i>}
+        fallbackElement={<Loader />}
       />
     </PrimeReactProvider>
   </StrictMode>,

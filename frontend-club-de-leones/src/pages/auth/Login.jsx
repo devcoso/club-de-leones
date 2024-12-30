@@ -27,6 +27,9 @@ export async function action({request}) {
   if(response.status === 200) {
     // Guardar el token en la sesión
     localStorage.setItem('token', response.data.token)
+    if(response.data.user.user_type == 2) {
+      return redirect('/admin')
+    }
     return redirect('/')
   }
 

@@ -44,11 +44,16 @@ export async function login(datos){
 
 export async function logout(){
     try {
+        const token = localStorage.getItem('token') ?? null;
+        if (!token) {
+            return {status: 406, data: 'No hay token'}
+        }
         const url = import.meta.env.VITE_API_URL + '/auth/logout'
         const respuesta = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
+                'Authorization' : 'Bearer ' + localStorage.getItem('token')
             },
         })
         const data = await respuesta.json()
