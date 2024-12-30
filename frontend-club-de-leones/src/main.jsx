@@ -4,7 +4,6 @@ import './index.css'
 
 import {
   createBrowserRouter,
-  redirect,
   RouterProvider,
 } from "react-router-dom";
 import 'primeicons/primeicons.css';
@@ -27,7 +26,7 @@ import AdminLayout from './layouts/AdminLayout';
   //Admin
   import AdminHome from './pages/admin/Home';
   import AdminEvents from './pages/admin/Events';
-  import AdminEventCategories from './pages/admin/EventCategories';
+  import AdminEventTypes from './pages/admin/EventTypes';
   import AdminBranches from './pages/admin/Branches';
   import AdminUsers from './pages/admin/Users';
 
@@ -36,6 +35,8 @@ import AdminLayout from './layouts/AdminLayout';
   import { loader as mainLoader } from './layouts/MainLayout';
   import { loader as authLoader } from './layouts/AuthLayout';
   import { loader as adminLoader } from './layouts/AdminLayout';
+  //Admin
+  import { loader as adminEventTypesLoader } from './pages/admin/EventTypes';
 
 //Actions
   //Auth
@@ -97,8 +98,9 @@ const router = createBrowserRouter([
         element: <AdminEvents />
       },
       {
-        path:"event-categories",
-        element: <AdminEventCategories />
+        path:"event-types",
+        element: <AdminEventTypes />,
+        loader: adminEventTypesLoader
       },
       {
         path:"branches",

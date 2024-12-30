@@ -46,9 +46,9 @@ function AdminLayout() {
               <i className="pi pi-calendar" style={{ fontSize: '2rem' }}></i>
               <span className="ml-2">Eventos</span>
             </Link>
-            <Link to="/admin/event-categories" className={`font-bold p-2 space-x-3 rounded flex items-center transition-color hover:bg-gray-300 mb-2 shadow-md border-gray-200 ${useLocation().pathname === '/admin/event-categories' ? 'bg-primary text-white hover:bg-primary-dark' : 'bg-white'}`} >
-              <i className="pi pi-bookmark" style={{ fontSize: '2rem' }}></i>
-              <span className="ml-2">Categorias</span>
+            <Link to="/admin/event-types" className={`font-bold p-2 space-x-3 rounded flex items-center transition-color hover:bg-gray-300 mb-2 shadow-md border-gray-200 ${useLocation().pathname === '/admin/event-types' ? 'bg-primary text-white hover:bg-primary-dark' : 'bg-white'}`} >
+              <i className="pi pi-tag" style={{ fontSize: '2rem' }}></i>
+              <span className="ml-2">Tipos</span>
             </Link>
             <Link to="/admin/branches" className={`font-bold p-2 space-x-3 rounded flex items-center transition-color hover:bg-gray-300 mb-2 shadow-md border-gray-200 ${useLocation().pathname === '/admin/branches' ? 'bg-primary text-white hover:bg-primary-dark' : 'bg-white'}`} >
               <i className="pi pi-map-marker" style={{ fontSize: '2rem' }}></i>
@@ -61,7 +61,7 @@ function AdminLayout() {
         </div>
         <Link to={'/'} onClick={logoutButton} className={`${showMenu ? 'block' : 'hidden'} md:block w-full transition-colors bg-red-700 py-3 text-white text-center hover:bg-red-900 max-w-96 mx-auto font-bold`}>Cerrar Sesión</Link>
       </div>
-      <div className="md:w-3/4 lg:w-4/5 p-4">
+      <div className="md:w-3/4 lg:w-4/5 p-4 overflow-auto">
         <Outlet admin={admin}/>
       </div>
     </div>

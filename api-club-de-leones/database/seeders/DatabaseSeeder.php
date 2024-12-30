@@ -13,11 +13,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'José David',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('12345678'),
+            'created_at' => now(),
+            'updated_at' => now(),
+            'paternal_last_name' => 'Medina',
+            'maternal_last_name' => 'Paredes',
+            'phone_number' => '1234567890',
+            'birthdate' => '2000-01-01',
+            'sex' => '1',
+            'user_type' => 2,
         ]);
+
+        $this->call(EventTypeSeeder::class);
     }
 }
