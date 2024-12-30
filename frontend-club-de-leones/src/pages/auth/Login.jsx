@@ -33,7 +33,7 @@ export async function action({request}) {
     return redirect('/')
   }
 
-  return [response.data.errores]
+  return [response.data.errors]
 }
 
 function Login() {

@@ -64,7 +64,7 @@ export async function action({request}) {
   }
   const respuesta = await register(datos)
   if(respuesta.status == 201) {  
-    return redirect('/auth/login')
+    return redirect('/auth')
   }
 
   // Formatear errores

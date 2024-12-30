@@ -27,6 +27,7 @@ import AdminLayout from './layouts/AdminLayout';
   //Admin
   import AdminHome from './pages/admin/Home';
   import AdminEvents from './pages/admin/Events';
+  import AdminEventCategories from './pages/admin/EventCategories';
   import AdminBranches from './pages/admin/Branches';
   import AdminUsers from './pages/admin/Users';
 
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
       {
         path:"events",
         element: <AdminEvents />
+      },
+      {
+        path:"event-categories",
+        element: <AdminEventCategories />
       },
       {
         path:"branches",

@@ -42,8 +42,6 @@ export async function action({request}) {
   }
   console.log(response);
   return {status: 0, data: [response.data.errors]}
-
-  return {status: false, data: errors}
 }
 
 

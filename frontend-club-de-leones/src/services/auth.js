@@ -16,7 +16,7 @@ export async function register(datos){
         }
     } catch (error) {
         console.log(error);
-        return {status: 500, message: ['Error al conectar con el servidor']}
+        return {status: 500, data: {errors: ['Error al conectar con el servidor']}}
     }
 }
 
@@ -38,7 +38,7 @@ export async function login(datos){
         }
     } catch (error) {
         console.log(error);
-        return {status: 500, data: 'Error al conectar con el servidor'}
+        return {status: 500, data: {errors: 'Error al conectar con el servidor'}}
     }
 }
 
@@ -64,7 +64,7 @@ export async function logout(){
     }
     catch (error) {
         console.log(error);
-        return {error: 500, data: 'Error al conectar con el servidor'}
+        return {error: 500, data: {errors: 'Error al conectar con el servidor'}}
     }
 }
 
@@ -86,7 +86,7 @@ export async function forgotPassword(params) {
     }
     catch (error) {
         console.log(error);
-        return {error: 500, data: 'Error al conectar con el servidor'}
+        return {error: 500, data: {errors: 'Error al conectar con el servidor'}}
     }
 }
 
@@ -109,7 +109,7 @@ export async function resetPassword(params) {
     }
     catch (error) {
         console.log(error);
-        return {error: 500, data: 'Error al conectar con el servidor'}
+        return {error: 500, data: {errors: 'Error al conectar con el servidor'}}
     }
 }
 
@@ -135,6 +135,6 @@ export async function me(){
     }
     catch (error) {
         console.log(error);
-        return {error: 500, data: 'Error al conectar con el servidor'}
+        return {error: 500, data: {errors: 'Error al conectar con el servidor'}}
     }
 }
