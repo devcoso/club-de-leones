@@ -1,6 +1,6 @@
 import logo from '../assets/logo.png'
 
-function Loader() {
+function LoaderPage() {
   return (
     <div className='flex items-center flex-col justify-center h-screen'>
         <img src={logo} alt='logo' className='w-5/6 m-auto my-0 max-w-72'/>
@@ -10,4 +10,4 @@ function Loader() {
   )
 }
 
-export default Loader
+export default LoaderPage

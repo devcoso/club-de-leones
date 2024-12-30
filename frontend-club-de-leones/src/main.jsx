@@ -16,7 +16,7 @@ import AuthLayout from './layouts/AuthLayout';
 import AdminLayout from './layouts/AdminLayout';
 
 //Pages
-  import Loader from './pages/Loader';
+  import LoaderPage from './pages/LoaderPage';
   import Page404 from './pages/Page404';
   //Auth
   import Login from './pages/auth/Login';
@@ -121,7 +121,7 @@ createRoot(document.getElementById('root')).render(
     <PrimeReactProvider value={{unstyled:true, pt: Tailwind}}>
       <RouterProvider
         router={router}
-        fallbackElement={<Loader />}
+        fallbackElement={<LoaderPage />}
       />
     </PrimeReactProvider>
   </StrictMode>,
