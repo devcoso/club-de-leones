@@ -20,9 +20,9 @@ Route::group([
     'prefix' => 'admin',
     'middleware' => ['auth:sanctum', 'IsAdmin']
 ], function () {
-    Route::get('/event-type', [EventTypeController::class, 'index']);
     Route::post('/event-type', [EventTypeController::class, 'store']);
-    Route::get('/event-type/{id}', [EventTypeController::class, 'show']);
     Route::put('/event-type/{id}', [EventTypeController::class, 'update']);
     Route::delete('/event-type/{id}', [EventTypeController::class, 'destroy']);
 });
+
+Route::get('/event-type', [EventTypeController::class, 'index']);

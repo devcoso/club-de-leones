@@ -1,6 +1,6 @@
 export async function getAll() {
     try {
-        const url = import.meta.env.VITE_API_URL + '/admin/event-type'
+        const url = import.meta.env.VITE_API_URL + '/event-type'
         const respuesta = await fetch(url, {
             method: 'GET',
             headers: {

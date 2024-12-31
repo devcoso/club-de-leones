@@ -38,20 +38,6 @@ class EventTypeController extends Controller
         ], 201);
     }
 
-    public function show($id) {
-        $category = EventType::find($id);
-
-        if ($category) {
-            return response()->json([
-                'category' => $category
-            ]);
-        }
-
-        return response()->json([
-            'message' => 'Category not found'
-        ], 404);
-    }
-
     public function update(Request $request, $id) {
         $category = EventType::find($id);
 
