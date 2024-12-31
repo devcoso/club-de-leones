@@ -47,7 +47,14 @@ class BranchSeeder extends Seeder
                 'phone_number' => '55 5555 5555',
                 'created_at' => now(),
                 'updated_at' => now(),
-                ]
+            ],
+            [
+                'name' => 'Club de Leones de Gustavo A. Madero',
+                'location' => 'Av. 517 1, San Juan de Aragón, 07950 Ciudad de México, CDMX',
+                'phone_number' => '55 5555 5555',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }
