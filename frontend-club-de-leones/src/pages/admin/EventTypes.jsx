@@ -53,6 +53,7 @@ function EventTypes() {
   const [showDialog, setShowDialog] = useState(false);
   const [categories, setCategories] = useState(useLoaderData())
   const [refreshing, setRefreshing] = useState(false);
+  const [deleteDialog, setDeleteDialog] = useState(false);
 
   const [id, setId] = useState('');
   const [name, setName] = useState('');
@@ -86,8 +87,20 @@ function EventTypes() {
   };
 
   const onDelete = (rowData) => {
-    remove(rowData.id)
-    toast.current.show({severity:'success', summary:'Borrado', detail:rowData.name + ' eliminado correctamente'});
+    setId(rowData.id);
+    setName(rowData.name);
+    setDeleteDialog(true);
+  }
+
+  const deleteEventType = async () => {
+    const response = await remove(id)
+    setDeleteDialog(false);
+    if(response.status !== 200) {
+      toast.current.show({severity:'error', summary:'Error', detail: name + ' no pudo ser eliminado'});
+      return;
+    }
+    remove(id)
+    toast.current.show({severity:'success', summary:'Borrado', detail: name + ' eliminado correctamente'});
     handleRefresh();
   }
 
@@ -164,6 +177,13 @@ function EventTypes() {
         <Button label="Guardar" className="p-button-text bg-lime-600 hover:bg-lime-800 border-none" />  
         </Form>
     </Dialog>
+    <Dialog header="Eliminar tipo de evento" visible={deleteDialog} className='w-full md:w-1/3 lg:w-1/4' onHide={() => setDeleteDialog(false)}>
+        <div className='flex flex-col gap-3 my-3'>
+          <p>¿Estás seguro de eliminar este tipo de evento?</p>
+          <Button label="Eliminar" onClick={deleteEventType} className="p-button-text bg-red-600 hover:bg-red-800 border-none block m-auto" />
+        </div>
+    </Dialog>
+
     </div>
   )
 }

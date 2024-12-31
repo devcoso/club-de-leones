@@ -186,7 +186,7 @@ function Register() {
           <InputMask 
             id="phone_number"
             style={{width: '100%', display: 'block'}}
-            mask="9999999999" 
+            mask="99-9999-9999" 
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
             name="phone_number"

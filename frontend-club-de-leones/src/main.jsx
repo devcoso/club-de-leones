@@ -37,6 +37,7 @@ import AdminLayout from './layouts/AdminLayout';
   import { loader as adminLoader } from './layouts/AdminLayout';
   //Admin
   import { loader as adminEventTypesLoader } from './pages/admin/EventTypes';
+  import { loader as adminBranchesLoader } from './pages/admin/Branches';
 
 //Actions
   //Auth
@@ -46,6 +47,7 @@ import AdminLayout from './layouts/AdminLayout';
   import { action as resetPasswordAction } from './pages/auth/ResetPassword';
   //Admin
   import { action as adminEventTypesAction } from './pages/admin/EventTypes';
+  import { action as adminBranchesAction } from './pages/admin/Branches';
 
 
 const router = createBrowserRouter([
@@ -107,7 +109,9 @@ const router = createBrowserRouter([
       },
       {
         path:"branches",
-        element: <AdminBranches />
+        element: <AdminBranches />,
+        loader: adminBranchesLoader,
+        action: adminBranchesAction
       },
       {
         path:"users",

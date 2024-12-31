@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'sex' => '1',
             'user_type' => 2,
         ]);
-
         $this->call(EventTypeSeeder::class);
+        $this->call(BranchSeeder::class);
     }
 }
