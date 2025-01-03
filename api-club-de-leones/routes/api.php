@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventTypeController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\UserController;
 
 // Auth routes
 Route::group([
@@ -33,6 +34,11 @@ Route::group([
     Route::put('/branch/{id}', [BranchController::class, 'update']);
     Route::delete('/branch/{id}', [BranchController::class, 'destroy']);
 
+    // Users
+    Route::get('/users', [UserController::class, 'users']);
+    Route::get('/users/{id}', [UserController::class, 'user']);
+    Route::post('/users/{id}/assign-role', [UserController::class, 'assignRole']);
+    Route::post('/users/{id}/assign-branch', [UserController::class, 'assignBranch']);
 });
 
 // Public routes

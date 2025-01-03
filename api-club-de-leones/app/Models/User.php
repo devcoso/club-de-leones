@@ -21,6 +21,11 @@ class User extends Authenticatable
         3 => 'Instructor',
     ];
 
+    const SEX_MAP = [
+        1 => 'Masculino',
+        2 => 'Femenino',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -45,6 +50,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    protected $appends = [
+        'full_name',
+        'type',
+        'sex_name',
     ];
 
     /**
@@ -73,13 +84,26 @@ class User extends Authenticatable
     */
     public function getTypeAttribute(): string
     {
-        return self::TYPE_MAP[$this->user_type];
+        return self::TYPE_MAP[$this->user_type] ?? 'Sin tipo';
+    }
+
+    /**
+     * Get the user's sex.
+    */
+    public function getSexNameAttribute(): string
+    {
+        return self::SEX_MAP[$this->sex] ?? 'Sin sexo';
     }
 
 
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 
 }

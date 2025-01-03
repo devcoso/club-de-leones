@@ -18,7 +18,7 @@ import { InputMask } from 'primereact/inputmask';
 export async function loader() {
     const response = await getAll()
     if(response.status !== 200) {
-        return response.data.errors
+        return null
     }
     return response.data.branches
 }
