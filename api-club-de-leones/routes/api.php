@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventTypeController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
 
 // Auth routes
 Route::group([
@@ -39,10 +40,17 @@ Route::group([
     Route::get('/users/{id}', [UserController::class, 'user']);
     Route::post('/users/{id}/assign-type', [UserController::class, 'assignType']);
     Route::post('/users/{id}/assign-branch', [UserController::class, 'assignBranch']);
+
+    // Events
+    Route::post('/events', [EventController::class, 'store']);
+    Route::put('/events/{id}', [EventController::class, 'update']);
+    Route::delete('/events/{id}', [EventController::class, 'destroy']);
 });
 
 // Public routes
 Route::get('/event-type', [EventTypeController::class, 'index']);
 Route::get('/branch', [BranchController::class, 'index']);
+Route::get('/events', [EventController::class, 'index']);
 Route::get('/branch/{id}', [BranchController::class, 'show']);
+Route::get('/events/{id}', [EventController::class, 'event']);
 

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('event', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->smallInteger("max_age");
             $table->smallInteger("max_participants");
             $table->foreignId('branch_id')->constrained("branches");
-            $table->foreignId('type_id')->constrained("event_type");
+            $table->foreignId('type_id')->constrained("event_types");
             $table->foreignId('created_by')->constrained("users");
             $table->timestamps();
         });
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('event');
+        Schema::dropIfExists('events');
     }
 };

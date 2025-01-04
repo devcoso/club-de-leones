@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class EventType extends Model
 {
-    protected $table = 'event_type';
+    protected $table = 'event_types';
     protected $fillable = ['name', 'description'];
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
 }

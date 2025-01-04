@@ -21,7 +21,7 @@ export async function action({request}) {
   const maternalLastName = formData.get('maternal_last_name')
   const birthdate = formData.get('birthdate')
   const sex = formData.get('sex')
-  const phoneNumber = formData.get('phone_number')
+  const phoneNumber = formData.get('phone_number').replace(/-/g, '')
   const email = formData.get('email')
   const password = formData.get('password')
   const password2 = formData.get('password2')

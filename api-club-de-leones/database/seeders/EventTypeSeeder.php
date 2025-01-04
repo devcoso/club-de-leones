@@ -14,7 +14,7 @@ class EventTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('event_type')->insert([
+        DB::table('event_types')->insert([
             [
                 'name' => 'Acuatlón Bajo Techo',
                 'description' => 'Incluye natación y carrera en cinta.',
