@@ -49,7 +49,6 @@ import AdminLayout from './layouts/AdminLayout';
   //Admin
   import { action as adminEventTypesAction } from './pages/admin/EventTypes';
   import { action as adminBranchesAction } from './pages/admin/Branches';
-  import { action as adminUsersAction } from './pages/admin/Users';
 
 
 const router = createBrowserRouter([
@@ -118,8 +117,7 @@ const router = createBrowserRouter([
       {
         path:"users",
         element: <AdminUsers />,
-        loader: adminUsersLoader,
-        action: adminUsersAction
+        loader: adminUsersLoader
       }
     ],
     loader: adminLoader

@@ -21,14 +21,19 @@ class UserController extends Controller
         ]);
     }
 
-    public function assignRole(Request $request, $id)
+    public function assignType(Request $request, $id)
     {
+        if ($id == $request->user()->id) {
+            return response()->json([
+                'message' => 'No puedes cambiar tu propio tipo de usuario'
+            ], 403);
+        }
         $user = User::find($id);
-        $user->user_type = $request->user_type;
+        $user->user_type = array_search($request->type, User::TYPE_MAP);
         $user->save();
 
         return response()->json([
-            'message' => 'Role assigned successfully'
+            'message' => 'Tipo de usuario asignado correctamente'
         ]);
     }
 
@@ -39,7 +44,7 @@ class UserController extends Controller
         $user->save();
 
         return response()->json([
-            'message' => 'Branch assigned successfully'
+            'message' => 'Sede asignada correctamente'
         ]);
     }
 

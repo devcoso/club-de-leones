@@ -31,7 +31,7 @@ class UserFactory extends Factory
             'updated_at' => now(),
             'paternal_last_name' => fake()->lastName(),
             'maternal_last_name' => fake()->lastName(),
-            'phone_number' => fake()->phoneNumber(),
+            'phone_number' => fake()->numberBetween(1000000000, 9999999999),
             'birthdate' => fake()->date(),
             'sex' => fake()->randomElement(['1', '2']),
             'user_type' => fake()->randomElement(['1', '1' , '1', '1', '1' , '1', '1', '3']),

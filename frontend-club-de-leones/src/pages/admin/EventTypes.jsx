@@ -140,17 +140,12 @@ function EventTypes() {
     <div className='my-12 space-y-12 mx-2 md:mx-5'>
       <Toast ref={toast} />
       <h1 className='text-center font-bold text-primary text-3xl md:text-4xl lg:text-5xl'>Tipos de eventos</h1>
-      {refreshing ? (
-          <div className="mx-auto" style={{ height: '200px' }}>
-            <ProgressBar mode="indeterminate" style={{ height: '6px' }}></ProgressBar>
-          </div>
-      ) :
-      (<DataTable value={categories} paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }} header={header}>
+      <DataTable value={categories} paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }} header={header} loading={refreshing}>
           <Column field="id" header="ID" style={{ width: '5%' }} sortable></Column>
           <Column field="name" header="Tipo" style={{ width: '25%' }} sortable></Column>
           <Column field="description" header="Descripción" style={{ width: '60%' }}></Column>
           <Column body={actionTemplate} style={{ width: '10%' }}></Column>
-      </DataTable>)}
+      </DataTable>
       <Dialog header={`${id ? 'Editar' : 'Agregar'} tipo de evento`} visible={showDialog} className='w-full md:w-3/4 lg:w-1/2' onHide={() => {if (!showDialog) return; setShowDialog(false); }}>
         <Form method="POST" className="flex flex-col gap-3 my-3">
           <label htmlFor="event_type_name" className=" text-gray-500 font-bold">Nombre</label>

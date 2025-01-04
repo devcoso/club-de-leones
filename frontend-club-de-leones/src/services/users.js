@@ -55,3 +55,48 @@ export async function get(id) {
         return {status: 500, data: {errors: ['Error al conectar con el servidor']}}
     }
 }
+
+export async function assignType(id, type) {
+    try {
+        const url = import.meta.env.VITE_API_URL + `/admin/users/${id}/assign-type`
+        const respuesta = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({type})
+        })
+        const data = await respuesta.json()
+        return {
+            status: respuesta.status,
+            data
+        }
+    } catch (error) {
+        console.log(error);
+        return {status: 500, data: {errors: ['Error al conectar con el servidor']}}
+    }
+}
+
+
+export async function assignBranch(id, branch_id) {
+    try {
+        const url = import.meta.env.VITE_API_URL + `/admin/users/${id}/assign-branch`
+        const respuesta = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({branch_id})
+        })
+        const data = await respuesta.json()
+        return {
+            status: respuesta.status,
+            data
+        }
+    } catch (error) {
+        console.log(error);
+        return {status: 500, data: {errors: ['Error al conectar con el servidor']}}
+    }
+}

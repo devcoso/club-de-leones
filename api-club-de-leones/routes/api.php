@@ -37,7 +37,7 @@ Route::group([
     // Users
     Route::get('/users', [UserController::class, 'users']);
     Route::get('/users/{id}', [UserController::class, 'user']);
-    Route::post('/users/{id}/assign-role', [UserController::class, 'assignRole']);
+    Route::post('/users/{id}/assign-type', [UserController::class, 'assignType']);
     Route::post('/users/{id}/assign-branch', [UserController::class, 'assignBranch']);
 });
 
