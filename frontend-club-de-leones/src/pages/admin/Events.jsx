@@ -237,10 +237,6 @@ function Event() {
     }  
   }, [messages])
 
-  useEffect(() => {
-    console.log(managers)
-  }, [managers])
-
    const branchBodyTemplate = (rowData) => {
       return rowData?.branch ? <Tag value={rowData.branch.name} className='text-sm' style={{background: 'linear-gradient(-225deg,#3a6b99 0%,#23609a 48%,#175794 100%)'}} /> : ''
     }

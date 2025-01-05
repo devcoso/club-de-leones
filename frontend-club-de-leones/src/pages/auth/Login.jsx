@@ -23,7 +23,6 @@ export async function action({request}) {
   }
 
   const response = await login({email, password})
-  console.log(response);
   if(response.status === 200) {
     // Guardar el token en la sesión
     localStorage.setItem('token', response.data.token)

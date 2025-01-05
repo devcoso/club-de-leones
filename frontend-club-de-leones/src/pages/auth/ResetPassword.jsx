@@ -37,10 +37,8 @@ export async function action({request}) {
 
   const response = await resetPassword({email, token, password}) 
   if(response.status == 200) {  
-    console.log(response); 
     return {status:1, data: [response.data.messages]}
   }
-  console.log(response);
   return {status: 0, data: [response.data.errors]}
 }
 
@@ -75,7 +73,6 @@ function ResetPassword() {
           <p>{error}</p>
         )}
       }) 
-      console.log(data); 
       if(messages.current){
         messages.current.clear();
         messages.current.show(msg);
