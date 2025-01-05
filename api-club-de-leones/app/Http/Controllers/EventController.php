@@ -57,6 +57,7 @@ class EventController extends Controller
             'created_by' => $request->user()->id,
         ]);
 
+        $event->touch();
         $event->managers()->attach($request->managers);
 
         return response()->json([
@@ -111,6 +112,8 @@ class EventController extends Controller
             'type_id' => $request->type_id,
         ]);
 
+        //Guardar timestamps de ambos modelos
+        $event->touch();
         $event->managers()->sync($request->managers);
 
         return response()->json([

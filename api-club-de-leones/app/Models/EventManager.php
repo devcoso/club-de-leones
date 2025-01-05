@@ -10,6 +10,8 @@ class EventManager extends Model
     use HasFactory;
     protected $table = 'event_managers';
     protected $fillable = ['user_id', 'event_id', 'type'];
+    public $timestamps = false; // Desactiva los timestamps para este modelo
+
 
     public function user()
     {

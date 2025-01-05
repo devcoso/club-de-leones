@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('event_managers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained("users");
-            $table->foreignId('event_id')->constrained("events");
+            $table->foreignId('user_id')->constrained("users")->onDelete('cascade');
+            $table->foreignId('event_id')->constrained("events")->onDelete('cascade');
             $table->smallInteger('type')->nullable();
-            $table->timestamps();
         });
     }
 
