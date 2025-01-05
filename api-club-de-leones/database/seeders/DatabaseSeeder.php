@@ -29,6 +29,21 @@ class DatabaseSeeder extends Seeder
             'sex' => '1',
             'user_type' => 2,
         ]);
+        User::factory()->create([
+            'name' => 'Armandito',
+            'email' => 'user@user.com',
+            'user_type' => 1,
+        ]);
+        User::factory()->create([
+            'name' => 'Vicio',
+            'email' => 'user1@user.com',
+            'user_type' => 1,
+        ]);
+        User::factory()->create([
+            'name' => 'Pablito',
+            'email' => 'trainer@trainer.com',
+            'user_type' => 3,
+        ]);
         User::factory(100)->create();
         $this->call(EventSeeder::class);
         EventManager::factory(100)->create();

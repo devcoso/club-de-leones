@@ -7,7 +7,7 @@ import logo from "../assets/logo.png"
 export async function loader() {
   const response = await me()
   if(response.status === 200) {
-    return redirect('/')
+    return redirect('/dashboard')
   }
   return null
 }

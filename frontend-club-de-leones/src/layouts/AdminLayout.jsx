@@ -66,6 +66,10 @@ function AdminLayout() {
               <i className="pi pi-user" style={{ fontSize: '2rem' }}></i>
               <span className="ml-2">Usuarios</span>
             </AdminLink>
+            <AdminLink isDisabled={isLoading} to="/dashboard">
+              <i className="pi pi-objects-column" style={{ fontSize: '2rem' }}></i>
+              <span className="ml-2">Dashboard</span>
+            </AdminLink>
         </div>
         <Link to={'/'} onClick={logoutButton} className={`${showMenu ? 'block' : 'hidden'} md:block w-full transition-colors bg-red-700 py-3 text-white text-center hover:bg-red-900 max-w-96 mx-auto font-bold`}>Cerrar Sesión</Link>
       </div>

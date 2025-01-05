@@ -29,7 +29,7 @@ export async function action({request}) {
     if(response.data.user.user_type == 2) {
       return redirect('/admin')
     }
-    return redirect('/')
+    return redirect('/dashboard')
   }
 
   return [response.data.errors]

@@ -10,14 +10,15 @@ import 'primeicons/primeicons.css';
 import { PrimeReactProvider } from "primereact/api";
 import Tailwind from 'primereact/passthrough/tailwind';
 
-//Layout
-import MainLayout from './layouts/MainLayout';
+//Layouts
+import DashboardLayout from './layouts/DashboardLayout';
 import AuthLayout from './layouts/AuthLayout';
 import AdminLayout from './layouts/AdminLayout';
 
 //Pages
-  import LoaderPage from './pages/LoaderPage';
-  import Page404 from './pages/Page404';
+import Home from './pages/Home';
+import LoaderPage from './pages/LoaderPage';
+import Page404 from './pages/Page404';
   //Auth
   import Login from './pages/auth/Login';
   import Register from './pages/auth/Register';
@@ -29,10 +30,17 @@ import AdminLayout from './layouts/AdminLayout';
   import AdminEventTypes from './pages/admin/EventTypes';
   import AdminBranches from './pages/admin/Branches';
   import AdminUsers from './pages/admin/Users';
+  //Dasboard
+  import Main from './pages/dashboard/Main';
+  import Events from './pages/dashboard/Events';
+  import Event from './pages/dashboard/Event';
+  import Branches from './pages/dashboard/Branches';
+  import Perfil from './pages/dashboard/Perfil';
+  import TrainersAndStudents from './pages/dashboard/TrainersAndStudents';
 
 //Loaders
   //Layouts
-  import { loader as mainLoader } from './layouts/MainLayout';
+  import { loader as dashboardLoader } from './layouts/DashboardLayout';
   import { loader as authLoader } from './layouts/AuthLayout';
   import { loader as adminLoader } from './layouts/AdminLayout';
   //Admin
@@ -55,15 +63,39 @@ import AdminLayout from './layouts/AdminLayout';
 
 const router = createBrowserRouter([
   {
-    path: "",
-    element: <MainLayout />,
+    index:true,
+    element: <Home />
+  },
+  {
+    path: "dashboard",
+    element: <DashboardLayout />,
     children: [
       {
-        path:"",
-        element: <p>Home</p>
-      }
+        index:true,
+        element: <Main />
+      },
+      {
+        path:"events",
+        element: <Events />
+      },
+      {
+        path:"event/:id",
+        element: <Event />
+      },
+      {
+        path:"branches",
+        element: <Branches />
+      },
+      {
+        path:"perfil",
+        element: <Perfil />
+      },
+      {
+        path:"trainers-and-students",
+        element: <TrainersAndStudents />
+      },
     ],
-    loader: mainLoader
+    loader: dashboardLoader
   },
   {
     path: "auth",
