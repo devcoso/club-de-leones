@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\EventManager;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -29,5 +30,7 @@ class DatabaseSeeder extends Seeder
             'user_type' => 2,
         ]);
         User::factory(100)->create();
+        $this->call(EventSeeder::class);
+        EventManager::factory(100)->create();
     }
 }

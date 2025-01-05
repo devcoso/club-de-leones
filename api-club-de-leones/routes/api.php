@@ -37,10 +37,11 @@ Route::group([
 
     // Users
     Route::get('/users', [UserController::class, 'users']);
+    Route::get('/users/trainers', [UserController::class, 'trainers']);
     Route::get('/users/{id}', [UserController::class, 'user']);
     Route::post('/users/{id}/assign-type', [UserController::class, 'assignType']);
     Route::post('/users/{id}/assign-branch', [UserController::class, 'assignBranch']);
-
+    
     // Events
     Route::post('/events', [EventController::class, 'store']);
     Route::put('/events/{id}', [EventController::class, 'update']);

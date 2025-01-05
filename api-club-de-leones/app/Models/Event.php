@@ -27,8 +27,13 @@ class Event extends Model
         return $this->belongsTo(Branch::class);
     }
 
-    public function event_type()
+    public function type()
     {
         return $this->belongsTo(EventType::class);
+    }
+
+    public function managers()
+    {
+        return $this->belongsToMany(User::class, 'event_managers', 'event_id', 'user_id');
     }
 }

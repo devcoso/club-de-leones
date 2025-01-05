@@ -29,7 +29,7 @@ export async function action({request}) {
     const id = formData.get('id')
     const name = formData.get('branch_name')
     const location = formData.get('branch_location')
-    const phone = formData.get('branch_phone')
+    const phone = formData.get('branch_phone').replace(/-/g, '')
 
     if (!name || !location || !phone) {
         return {status:0, data:['Todos los campos son requeridos']}
@@ -104,9 +104,8 @@ function Branches() {
       toast.current.show({severity:'error', summary:'Error', detail: name + ' no pudo ser eliminado'});
       return;
     }
-    remove(id)
-    toast.current.show({severity:'success', summary:'Borrado', detail: name + ' eliminado correctamente'});
-    handleRefresh();
+    toast.current.show({severity:'success', summary:'Borrado', detail: name + ' fue eliminado correctamente'});
+    setBranches(branches.filter((e) => e.id !== id));
   }
   
 
@@ -137,16 +136,18 @@ function Branches() {
         toast.current.clear();
         toast.current.show(msg);
       }
-      if(messages.status) handleRefresh();
+      if(messages.status){
+        setShowDialog(false);
+        handleRefresh();
+      } 
     }  
-    setShowDialog(false);
   }, [messages])
 
   return (
     <div className='my-12 space-y-12 mx-2 md:mx-5'>
       <Toast ref={toast} />
       <h1 className='text-center font-bold text-primary text-3xl md:text-4xl lg:text-5xl'>Sedes</h1>
-      <DataTable value={branches} paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }} header={header} loading={refreshing} >
+      <DataTable value={branches} paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }} header={header} loading={refreshing} emptyMessage="No hay sedes registradas">
           <Column field="id" header="ID" style={{ width: '10%' }} sortable></Column>
           <Column field="name" header="Nombre" style={{ width: '60%' }} sortable></Column>
           <Column body={actionTemplate} style={{ width: '10%' }}></Column>
@@ -160,7 +161,7 @@ function Branches() {
             type="text"
             className="w-full"
             value={name}
-            onChange={(e) => setName(e.target.value)} 
+            onChange={(e) => setName(e.value)} 
             name="branch_name"
           />
           <label htmlFor="branch_location" className=" text-gray-500 font-bold">Localización</label>
@@ -169,7 +170,7 @@ function Branches() {
             type="text"
             className="w-full"
             value={location}
-            onChange={(e) => setLocation(e.target.value)} 
+            onChange={(e) => setLocation(e.value)} 
             name="branch_location"
             rows={5} 
             cols={30} 

@@ -106,4 +106,18 @@ class User extends Authenticatable
         return $this->belongsTo(Branch::class);
     }
 
+    public function events(){
+        return $this->belongsToMany(Event::class, 'event_managers', 'user_id', 'event_id');
+    }
+
+    public function getPublicDataAttribute()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'paternal_last_name' => $this->paternal_last_name,
+            'maternal_last_name' => $this->maternal_last_name,
+            'type' => $this->type
+        ];
+    }
 }

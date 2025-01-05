@@ -7,7 +7,6 @@ import { useLoaderData, Form, useActionData} from "react-router-dom"
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
-import { ProgressBar } from 'primereact/progressbar';
 import { Dialog } from 'primereact/dialog';
 import { Toast } from 'primereact/toast';
 import { InputText } from 'primereact/inputtext';
@@ -99,9 +98,8 @@ function EventTypes() {
       toast.current.show({severity:'error', summary:'Error', detail: name + ' no pudo ser eliminado'});
       return;
     }
-    remove(id)
-    toast.current.show({severity:'success', summary:'Borrado', detail: name + ' eliminado correctamente'});
-    handleRefresh();
+    toast.current.show({severity:'success', summary:'Borrado', detail: name + ' fue eliminado correctamente'});
+    setCategories(categories.filter((e) => e.id !== id));
   }
 
   const actionTemplate = (rowData) => {
@@ -131,16 +129,19 @@ function EventTypes() {
         toast.current.clear();
         toast.current.show(msg);
       }
-      if(messages.status) handleRefresh();
+      if(messages.status){
+        setShowDialog(false);
+        handleRefresh();
+      } 
     }  
-    setShowDialog(false);
+    
   }, [messages])
 
   return (
     <div className='my-12 space-y-12 mx-2 md:mx-5'>
       <Toast ref={toast} />
       <h1 className='text-center font-bold text-primary text-3xl md:text-4xl lg:text-5xl'>Tipos de eventos</h1>
-      <DataTable value={categories} paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }} header={header} loading={refreshing}>
+      <DataTable value={categories} paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }} header={header} loading={refreshing} emptyMessage="No hay tipos de eventos registrados">
           <Column field="id" header="ID" style={{ width: '5%' }} sortable></Column>
           <Column field="name" header="Tipo" style={{ width: '25%' }} sortable></Column>
           <Column field="description" header="Descripción" style={{ width: '60%' }}></Column>
@@ -155,7 +156,7 @@ function EventTypes() {
             type="text"
             className="w-full"
             value={name}
-            onChange={(e) => setName(e.target.value)} 
+            onChange={(e) => setName(e.value)} 
             name="event_type_name"
           />
           <label htmlFor="event_type_description" className=" text-gray-500 font-bold">Descripción</label>
@@ -164,7 +165,7 @@ function EventTypes() {
             type="text"
             className="w-full"
             value={description}
-            onChange={(e) => setDescription(e.target.value)} 
+            onChange={(e) => setDescription(e.value)} 
             name="event_type_description"
             rows={5} 
             cols={30} 

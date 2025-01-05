@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Branch;
 
 class UserController extends Controller
 {
@@ -11,6 +12,18 @@ class UserController extends Controller
     {
         return response()->json([
             'users' => User::all()
+        ]);
+    }
+
+    public function trainers()
+    {
+        $trainers_by_branch = Branch::with(['users' => function($query) {
+            $query->where('user_type', 3);
+        }])->get();
+        
+
+        return response()->json([
+            'trainers' => $trainers_by_branch
         ]);
     }
 

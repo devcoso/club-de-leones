@@ -190,7 +190,7 @@ function Users() {
 
   const phoneBodyTemplate = (rowData) => {
     const formattedPhoneNumber = `${rowData.phone_number.slice(0, 2)}-${rowData.phone_number.slice(2, 6)}-${rowData.phone_number.slice(6)}`;
-    return <p>{formattedPhoneNumber}</p>
+    return <p className='w-28'>{formattedPhoneNumber}</p>
   }
 
   const branchBodyTemplate = (rowData) => {

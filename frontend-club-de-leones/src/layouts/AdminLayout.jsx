@@ -61,7 +61,7 @@ function AdminLayout() {
         </div>
         <Link to={'/'} onClick={logoutButton} className={`${showMenu ? 'block' : 'hidden'} md:block w-full transition-colors bg-red-700 py-3 text-white text-center hover:bg-red-900 max-w-96 mx-auto font-bold`}>Cerrar Sesión</Link>
       </div>
-      <div className="md:w-3/4 lg:w-4/5 p-4 overflow-auto">
+      <div className="md:w-3/4 lg:w-4/5 p-4 overflow-y-auto overflow-x-hidden">
         <Outlet admin={admin}/>
       </div>
     </div>
