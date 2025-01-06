@@ -6,7 +6,7 @@ import { Outlet, redirect, Link, useLoaderData, useNavigation } from "react-rout
 
 import logo from "../assets/logo.png"
 import LoaderPage from "../pages/LoaderPage"
-import AdminLink from "../components/AdminLink"
+import AdminLink from "../components/admin/AdminLink"
 
 import { Button } from "primereact/button"
 

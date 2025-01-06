@@ -48,6 +48,8 @@ import Page404 from './pages/Page404';
   import { loader as adminBranchesLoader } from './pages/admin/Branches';
   import { loader as adminUsersLoader } from './pages/admin/Users';
   import { loader as adminEventsLoader } from './pages/admin/Events';
+  //Dashboard
+  import { loader as branchesLoader } from './pages/dashboard/Branches';
 
 //Actions
   //Auth
@@ -84,7 +86,8 @@ const router = createBrowserRouter([
       },
       {
         path:"branches",
-        element: <Branches />
+        element: <Branches />,
+        loader: branchesLoader
       },
       {
         path:"perfil",
