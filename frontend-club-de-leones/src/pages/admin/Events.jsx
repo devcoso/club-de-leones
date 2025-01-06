@@ -380,7 +380,7 @@ function Event() {
         <label htmlFor="event_managers" className="text-gray-500 text-sm md:text-base font-bold">Managers</label>
         <MultiSelect value={managers} options={trainers} onChange={(e) => setManagers(e.value)} optionLabel="full_name" optionValue='id'
                 optionGroupLabel="name" optionGroupChildren="users" optionGroupTemplate={groupedItemTemplate}
-                placeholder="Agrega managers" display="chip"style={{width: '100%', display: 'flex'}}
+                placeholder="Agrega managers" display="chip" style={{width: '100%', display: 'flex'}}
                 panelClassName='block' />
         <input type="hidden" name="event_managers" value={managers} />
         <Button label="Guardar" className="p-button-text bg-lime-600 hover:bg-lime-800 border-none" />  

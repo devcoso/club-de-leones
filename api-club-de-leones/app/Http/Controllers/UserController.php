@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Branch;
+use App\Models\UserTrainer;
 
 class UserController extends Controller
 {
@@ -58,6 +59,23 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'Sede asignada correctamente'
+        ]);
+    }
+
+    public function myMembers(Request $request)
+    {
+        $user = $request->user();
+        if($request->user()->user_type == 3) {
+            $members = UserTrainer::where('trainer_id', $user->id)->with('user')->get();
+        } else if($request->user()->user_type == 2) {
+            $branch = $request->user()->branch;
+            $members = User::where('branch_id', $user->id)->get();
+        } else {
+            $members = UserTrainer::where('user_id', $user->id)->with('trainer')->get();
+        }
+
+        return response()->json([
+            'members' => $members
         ]);
     }
 

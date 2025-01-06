@@ -7,6 +7,7 @@ use App\Http\Controllers\EventTypeController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\TrainerController;
 
 // Auth routes
 Route::group([
@@ -48,10 +49,32 @@ Route::group([
     Route::delete('/events/{id}', [EventController::class, 'destroy']);
 });
 
+// Trainer routes
+Route::group([
+    'prefix' => 'trainer',
+    'middleware' => ['auth:sanctum', 'IsTrainer']
+], function () {
+    // Events
+    Route::get('/users/members', [TrainerController::class, 'members']);
+    Route::post('/add-student/{id}', [TrainerController::class, 'addStudent']);
+    Route::put('/edit-title/{id}', [TrainerController::class, 'editTitle']);
+    Route::delete('/remove-student/{id}', [TrainerController::class, 'removeStudent']);
+});
+
+
+// User routes
+Route::group([
+    'middleware' => ['auth:sanctum']
+], function () {
+    // Route::get('/events', [UserController::class, 'events']);
+    // Route::post('/events/{id}/sign-up', [UserController::class, 'signUp']);
+    // Route::post('/events/{id}/cancel-sign-up', [UserController::class, 'cancelSignUp']);
+    Route::get('/users/my-members', [UserController::class, 'myMembers']);
+});
+
 // Public routes
 Route::get('/event-type', [EventTypeController::class, 'index']);
 Route::get('/branch', [BranchController::class, 'index']);
 Route::get('/events', [EventController::class, 'index']);
 Route::get('/branch/{id}', [BranchController::class, 'show']);
 Route::get('/events/{id}', [EventController::class, 'event']);
-

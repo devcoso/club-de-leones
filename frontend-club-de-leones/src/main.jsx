@@ -50,6 +50,7 @@ import Page404 from './pages/Page404';
   import { loader as adminEventsLoader } from './pages/admin/Events';
   //Dashboard
   import { loader as branchesLoader } from './pages/dashboard/Branches';
+  import { loader as trainersAndStudentsLoader } from './pages/dashboard/TrainersAndStudents';
 
 //Actions
   //Auth
@@ -95,7 +96,8 @@ const router = createBrowserRouter([
       },
       {
         path:"trainers-and-students",
-        element: <TrainersAndStudents />
+        element: <TrainersAndStudents />,
+        loader: trainersAndStudentsLoader
       },
     ],
     loader: dashboardLoader

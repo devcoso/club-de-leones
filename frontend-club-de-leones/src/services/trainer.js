@@ -1,43 +1,6 @@
-export async function getAll() {
+export async function getAllUsers() {
     try {
-        const usersUrl = import.meta.env.VITE_API_URL + '/admin/users'
-        const branchesUrl = import.meta.env.VITE_API_URL + '/branch'
-
-        const respuesta = Promise.all([
-            fetch(usersUrl, {
-                method: 'GET',
-                headers: {
-                    'Content-Type' : 'application/json',
-                    'Authorization' : `Bearer ${localStorage.getItem('token')}`
-                }
-            }),
-            fetch(branchesUrl, {
-                method: 'GET',
-                headers: {
-                    'Content-Type' : 'application/json',
-                    'Authorization' : `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-        ])
-        const data = await respuesta
-        const data1 = await data[0].json()
-        const data2 = await data[1].json()
-        return {
-            status: data[0].status == 200 && data[1].status == 200 ? 200 : 500,
-            data: {
-                users: data1?.users,
-                branches: data2?.branches
-            }
-        }
-    } catch (error) {
-        console.log(error);
-        return {status: 500, data: {errors: ['Error al conectar con el servidor']}}
-    }
-}
-
-export async function get(id) {
-    try {
-        const url = import.meta.env.VITE_API_URL + `/admin/users/${id}`
+        const url = import.meta.env.VITE_API_URL + '/trainer/users/members'
         const respuesta = await fetch(url, {
             method: 'GET',
             headers: {
@@ -56,16 +19,16 @@ export async function get(id) {
     }
 }
 
-export async function assignType(id, type) {
+export async function addStudent(id, title) {
     try {
-        const url = import.meta.env.VITE_API_URL + `/admin/users/${id}/assign-type`
+        const url = import.meta.env.VITE_API_URL + `/trainer/add-student/${id}`
         const respuesta = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
                 'Authorization' : `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify({type})
+            body: JSON.stringify({title})
         })
         const data = await respuesta.json()
         return {
@@ -78,17 +41,16 @@ export async function assignType(id, type) {
     }
 }
 
-
-export async function assignBranch(id, branch_id) {
+export async function updateStudent(id, title) {
     try {
-        const url = import.meta.env.VITE_API_URL + `/admin/users/${id}/assign-branch`
+        const url = import.meta.env.VITE_API_URL + `/trainer/edit-title/${id}`
         const respuesta = await fetch(url, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type' : 'application/json',
                 'Authorization' : `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify({branch_id})
+            body: JSON.stringify({title})
         })
         const data = await respuesta.json()
         return {
@@ -101,11 +63,11 @@ export async function assignBranch(id, branch_id) {
     }
 }
 
-export async function myMembers() {
+export async function removeStudent(id) {
     try {
-        const url = import.meta.env.VITE_API_URL + '/users/my-members'
+        const url = import.meta.env.VITE_API_URL + `/trainer/remove-student/${id}`
         const respuesta = await fetch(url, {
-            method: 'GET',
+            method: 'DELETE',
             headers: {
                 'Content-Type' : 'application/json',
                 'Authorization' : `Bearer ${localStorage.getItem('token')}`

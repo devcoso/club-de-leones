@@ -32,7 +32,7 @@ function DashboardLayout() {
   let routes = [
     {label: 'Inicio', icon: 'pi pi-fw pi-home',  command: () => handleNavigate('/dashboard')},
     {label: 'Eventos', icon: 'pi pi-fw pi-calendar', command: () => handleNavigate('/dashboard/events')},
-    {label: user.user_type == 3 ? 'Alumnos' : 'Entrenadores', icon: 'pi pi-fw pi-users', command: () => handleNavigate('/dashboard/trainers-and-students')},
+    {label: user.user_type == 3 ? 'Alumnos' : user.user_type == 2 ? 'Personas' : 'Entrenadores' , icon: 'pi pi-fw pi-users', command: () => handleNavigate('/dashboard/trainers-and-students')},
     {label: 'Sedes', icon: 'pi pi-fw pi-map-marker', command: () => handleNavigate('/dashboard/branches')},
     {label: 'Perfil', icon: <Avatar label={user.name.charAt(0)} size="normal" shape="circle" style={{width:"1.2rem", height: "1.2rem", marginRight: "0.3rem"}} />, command: () => handleNavigate('/dashboard/perfil')},
   ]
