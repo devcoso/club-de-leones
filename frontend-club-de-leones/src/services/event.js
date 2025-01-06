@@ -76,6 +76,27 @@ export async function getEvent(id) {
     }
 }
 
+export async function getEvents() {
+    try {
+        const url = import.meta.env.VITE_API_URL + '/events'
+        const respuesta = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        const data = await respuesta.json()
+        return {
+            status: respuesta.status,
+            data
+        }
+    } catch (error) {
+        console.log(error);
+        return {status: 500, data: {errors: ['Error al conectar con el servidor']}}
+    }
+}
+
 export async function create(body) {
     try {
         const url = import.meta.env.VITE_API_URL + '/admin/events'
