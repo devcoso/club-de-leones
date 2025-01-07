@@ -24,11 +24,6 @@ function DashboardLayout() {
   const data = useLoaderData();
   const user = data;
 
-  const logoutButton = () => {
-    logout()
-    localStorage.removeItem('token')
-  }
-
   let routes = [
     {label: 'Inicio', icon: 'pi pi-fw pi-home',  command: () => handleNavigate('/dashboard')},
     {label: 'Eventos', icon: 'pi pi-fw pi-calendar', command: () => handleNavigate('/dashboard/events')},

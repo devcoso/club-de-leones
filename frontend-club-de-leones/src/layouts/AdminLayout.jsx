@@ -37,7 +37,7 @@ function AdminLayout() {
 
   return (
     <div className="md:h-screen md:flex">
-      <div className="md:w-1/4 lg:w-1/5 bg-gray-100 shadow-2xl p-4 h-full flex flex-col overflow-auto">
+      <div className="sticky top-0 z-10 md:static md:w-1/4 lg:w-1/5 bg-gray-100 shadow-2xl p-4 h-full flex flex-col overflow-auto">
         <div className="flex md:flex-col justify-center items-center">
           <Link to="/">
             <img src={logo} alt="logo" className="m-auto w-12 md:w-36" />

@@ -1,5 +1,6 @@
 export default function formatDate(dateToFormat) {
     // Convertir la cadena a un objeto Date
+    if (!dateToFormat) return null
     const date = new Date(dateToFormat);
 
     // Formatear la fecha y hora
