@@ -6,9 +6,10 @@ import { Outlet, redirect, Link, useLoaderData, useNavigation } from "react-rout
 
 import logo from "../assets/logo.png"
 import LoaderPage from "../pages/LoaderPage"
-import AdminLink from "../components/admin/AdminLink"
+import DisabledLink from "../components/admin/DisabledLink"
 
 import { Button } from "primereact/button"
+
 
 export async function loader() {
   const response = await me()
@@ -43,33 +44,33 @@ function AdminLayout() {
             <img src={logo} alt="logo" className="m-auto w-12 md:w-36" />
           </Link>
           <h1 className="text-2xl font-bold text-center text-primary">Administración</h1>
-          <Button icon={`pi ${showMenu ? 'pi-times' : 'pi-bars'}`} className="md:hidden ml-auto bg-primary" onClick={() => setShowMenu(!showMenu)} />
+          <Button icon={`pi ${showMenu ? 'pi-times' : 'pi-bars'}`} className="md:hidden ml-auto bg-primary hover:bg-primary-dark" onClick={() => setShowMenu(!showMenu)} />
         </div>
         <div className={`mt-4 pb-4 ${showMenu ? 'block' : 'hidden'} md:block`}>
-            <AdminLink isDisabled={isLoading}  to="/admin">
+            <DisabledLink isDisabled={isLoading}  to="/admin">
               <i className="pi pi-home" style={{ fontSize: '2rem' }}></i>
               <span className="ml-2">Inicio</span>
-            </AdminLink>
-            <AdminLink isDisabled={isLoading} to="/admin/events">
+            </DisabledLink>
+            <DisabledLink isDisabled={isLoading} to="/admin/events">
               <i className="pi pi-calendar" style={{ fontSize: '2rem' }}></i>
               <span className="ml-2">Eventos</span>
-            </AdminLink>
-            <AdminLink isDisabled={isLoading} to="/admin/event-types">
+            </DisabledLink>
+            <DisabledLink isDisabled={isLoading} to="/admin/event-types">
               <i className="pi pi-tag" style={{ fontSize: '2rem' }}></i>
               <span className="ml-2">Tipos</span>
-            </AdminLink>
-            <AdminLink isDisabled={isLoading} to="/admin/branches">
-              <i className="pi pi-map-marker" style={{ fontSize: '2rem' }}></i>
+            </DisabledLink>
+            <DisabledLink isDisabled={isLoading} to="/admin/branches">
+              <i className="pi pi-building-columns" style={{ fontSize: '2rem' }}></i>
               <span className="ml-2">Sedes</span>
-            </AdminLink>
-            <AdminLink isDisabled={isLoading} to="/admin/users">
+            </DisabledLink>
+            <DisabledLink isDisabled={isLoading} to="/admin/users">
               <i className="pi pi-user" style={{ fontSize: '2rem' }}></i>
               <span className="ml-2">Usuarios</span>
-            </AdminLink>
-            <AdminLink isDisabled={isLoading} to="/dashboard">
+            </DisabledLink>
+            <DisabledLink isDisabled={isLoading} to="/dashboard">
               <i className="pi pi-objects-column" style={{ fontSize: '2rem' }}></i>
               <span className="ml-2">Dashboard</span>
-            </AdminLink>
+            </DisabledLink>
         </div>
         <Link to={'/'} onClick={logoutButton} className={`${showMenu ? 'block' : 'hidden'} md:block w-full transition-colors bg-red-700 py-3 text-white text-center hover:bg-red-900 max-w-96 mx-auto font-bold`}>Cerrar Sesión</Link>
       </div>
