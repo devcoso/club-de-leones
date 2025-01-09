@@ -2,7 +2,7 @@ import {getAll} from '../../services/branch'
 
 import { useState } from 'react'
 
-import { useLoaderData, useOutletContext } from "react-router-dom"
+import { redirect, useLoaderData, useOutletContext } from "react-router-dom"
 
 import Branch from '../../components/dashboard/Branch'
 
@@ -10,7 +10,7 @@ export async function loader() {
   
   const response = await getAll()
   if(response.status !== 200) {
-    return null
+    return redirect('/dashboard')
   }
   return response.data.branches
 }

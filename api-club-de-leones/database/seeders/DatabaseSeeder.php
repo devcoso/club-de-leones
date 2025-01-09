@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\EventManager;
+use App\Models\EventSession;
 use App\Models\UserTrainer;
 use Illuminate\Database\Seeder;
 
@@ -51,5 +52,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EventSeeder::class);
         EventManager::factory(50)->create();
         UserTrainer::factory(200)->create();
+        EventSession::factory(500)->create();
     }
 }

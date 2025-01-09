@@ -2,7 +2,7 @@ import { getEvents } from '../../services/event'
 
 import { useState, useEffect } from 'react'
 
-import { useLoaderData } from 'react-router-dom'
+import { redirect, useLoaderData } from 'react-router-dom'
 import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
 import { IconField } from 'primereact/iconfield'
@@ -15,7 +15,7 @@ import LoaderPage from '../LoaderPage'
 export async function loader() {
   const response = await getEvents()
   if(response.status !== 200) {
-      return null
+      return redirect('/dashboard')
   }
   return response.data.events.reverse()
 }

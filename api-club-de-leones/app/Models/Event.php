@@ -36,4 +36,10 @@ class Event extends Model
     {
         return $this->belongsToMany(User::class, 'event_managers', 'event_id', 'user_id');
     }
+
+    public function participants()
+    {
+        return $this->belongsToMany(User::class, 'event_sessions', 'event_id', 'user_id')
+            ->withPivot('participated_at', 'created_at', 'updated_at', 'duration', 'notes');
+    }
 }

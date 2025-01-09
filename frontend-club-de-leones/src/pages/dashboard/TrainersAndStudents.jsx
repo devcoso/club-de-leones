@@ -19,7 +19,7 @@ export async function loader() {
   const [members, users] = await Promise.all(promises)
   
   if(members.status !== 200) {
-    return null
+    return redirect('/dashboard')
   }
 
   return{

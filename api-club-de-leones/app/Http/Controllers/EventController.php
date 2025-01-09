@@ -139,7 +139,7 @@ class EventController extends Controller
         ]);
     }
 
-    public function event($id)
+    public function event(Request $request, $id)
     {
         $event = Event::with('branch', 'type')->find($id);
 
@@ -150,7 +150,8 @@ class EventController extends Controller
         }
 
         $event->managers = $event->managers()->get();
-
+        $event->participants = $event->participants()->count();
+        $event->participate = $event->participants()->where('user_id', $request->user()->id)->first()?->pivot;;
         if (!$event) {
             return response()->json([
                 'message' => 'Evento no encontrado'
