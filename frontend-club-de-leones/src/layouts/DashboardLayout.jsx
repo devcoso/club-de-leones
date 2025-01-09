@@ -37,7 +37,7 @@ function DashboardLayout() {
 
   return (
     <div className="bg-gray-100 min-h-screen pb-3">
-        <div div className="bg-white flex flex-col lg:flex-row justify-between shadow-md rounded-md sticky top-0 z-10">
+        <div className="bg-white flex flex-col lg:flex-row justify-between shadow-md rounded-md sticky top-0 z-10">
         <div className="flex justify-between items-center">
           <Link to="/">
               <img src={logo} alt="logo" className="w-20 mx-5 my-1" />
@@ -49,7 +49,7 @@ function DashboardLayout() {
               <i className="pi pi-home" style={{ fontSize: '1.5rem' }}></i>
               <span className="ml-2">Inicio</span>
             </DisabledLink>
-            <DisabledLink isDisabled={isLoading} to="/dashboard/events">
+            <DisabledLink isDisabled={isLoading} to="/dashboard/events" activePaths={['/dashboard/event/']}>
               <i className="pi pi-calendar" style={{ fontSize: '1.5rem' }}></i>
               <span className="ml-2">Eventos</span>
             </DisabledLink>

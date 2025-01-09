@@ -143,6 +143,12 @@ class EventController extends Controller
     {
         $event = Event::with('branch', 'type')->find($id);
 
+        if (!$event) {
+            return response()->json([
+                'message' => 'Evento no encontrado'
+            ], 404);
+        }
+
         $event->managers = $event->managers()->get();
 
         if (!$event) {
