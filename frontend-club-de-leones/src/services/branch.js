@@ -5,7 +5,6 @@ export async function getAll() {
             method: 'GET',
             headers: {
                 'Content-Type' : 'application/json',
-                'Authorization' : `Bearer ${localStorage.getItem('token')}`
             }
         })
         const data = await respuesta.json()

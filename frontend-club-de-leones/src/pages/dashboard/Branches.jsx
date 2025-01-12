@@ -23,15 +23,18 @@ function Branches() {
   return (
     <div>
       <h1 className='text-center font-bold text-primary text-3xl md:text-4xl lg:text-5xl my-5'>Sedes</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-5 md:mx-20 md:my-12">
-        {branches?.length > 0 ? branches.map(branch => (<Branch branch={branch} isYourBranch={branch.id == user.branch_id} key={branch.id}/>)) 
-        : (
+      
+        {branches?.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-5 md:mx-20 md:my-12">
+            {branches.map(branch => <Branch branch={branch} isYourBranch={branch.id == user.branch_id} key={branch.id}/>)}
+          </div>
+        ) : (
           <div className="flex justify-center items-center my-32">
             <p className='text-primary text-2xl font-bold'>No hay sedes registradas</p>
           </div>
         )}
       </div>
-    </div>
+    
   )
 }
 

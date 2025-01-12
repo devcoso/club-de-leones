@@ -56,7 +56,6 @@ function Event() {
       const response = await sign_up(event.id)
       if(response.status === 200) {
         setEvent({...event, participants: event.participants + 1})
-        console.log(response)
         setParticipate(response.data.event_session)
         toast.current.show({severity:'success', summary: 'Inscripción exitosa', detail: response.data.message, life: 3000});
       } else toast.current.show({severity:'error', summary: 'Error', detail: response.data.message, life: 3000});

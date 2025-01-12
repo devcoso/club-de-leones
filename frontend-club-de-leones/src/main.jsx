@@ -41,6 +41,7 @@ import ErrorPage from './pages/ErrorPage';
   import TrainersAndStudents from './pages/dashboard/TrainersAndStudents';
 
 //Loaders
+  import { loader } from './pages/Home';
   //Layouts
   import { loader as dashboardLoader } from './layouts/DashboardLayout';
   import { loader as authLoader } from './layouts/AuthLayout';
@@ -75,6 +76,7 @@ const router = createBrowserRouter([
   {
     index:true,
     element: <Home />,
+    loader: loader,
     errorElement : <ErrorPage />
   },
   {

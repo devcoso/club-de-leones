@@ -22,11 +22,9 @@ function Main() {
   const data = useLoaderData()
   const {user} = useOutletContext()
 
-  const [myEvents, setMyEvents] = useState(data.my_events)
-  const [branchEvents, setBranchEvents] = useState(data.branch_events)
-  const [branch, setBranch] = useState(data.branch)
-
-  console.log(data)
+  const [myEvents] = useState(data.my_events)
+  const [branchEvents] = useState(data.branch_events)
+  const [branch] = useState(data.branch)
 
   const sessionItemTemplate = (session) => {
 
