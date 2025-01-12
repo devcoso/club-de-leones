@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Branch;
 use App\Models\UserTrainer;
+use App\Models\Event;
+use App\Models\EventType;
+use App\Models\EventSession;
 
 class UserController extends Controller
 {
@@ -88,6 +91,27 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'Talla de camiseta asignada correctamente'
+        ]);
+    }
+
+    public function adminHome()
+    {
+        $total_members = User::where('user_type', 1)->count();
+        $total_trainers = User::where('user_type', 3)->count();
+        $total_admins = User::where('user_type', 2)->count();
+        $total_branches = Branch::count();
+        $total_event_types = EventType::count();
+        $total_events = Event::count();
+        $total_sessions = EventSession::count();
+
+        return response()->json([
+            'total_members' => $total_members,
+            'total_trainers' => $total_trainers,
+            'total_admins' => $total_admins,
+            'total_branches' => $total_branches,
+            'total_event_types' => $total_event_types,
+            'total_events' => $total_events,
+            'total_sessions' => $total_sessions
         ]);
     }
 

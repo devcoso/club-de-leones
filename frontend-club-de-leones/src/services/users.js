@@ -143,3 +143,24 @@ export async function setTshirtSize(id, tshirt_size) {
         return {status: 500, data: {errors: ['Error al conectar con el servidor']}}
     }
 }
+
+export async function adminHome () {
+    try {
+        const url = import.meta.env.VITE_API_URL + '/admin/home'
+        const respuesta = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        const data = await respuesta.json()
+        return {
+            status: respuesta.status,
+            data
+        }
+    } catch (error) {
+        console.log(error);
+        return {status: 500, data: {errors: ['Error al conectar con el servidor']}}
+    }
+}

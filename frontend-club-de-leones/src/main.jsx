@@ -45,6 +45,7 @@ import Page404 from './pages/Page404';
   import { loader as authLoader } from './layouts/AuthLayout';
   import { loader as adminLoader } from './layouts/AdminLayout';
   //Admin
+  import { loader as adminHomeLoader } from './pages/admin/Home';
   import { loader as adminEventTypesLoader } from './pages/admin/EventTypes';
   import { loader as adminBranchesLoader } from './pages/admin/Branches';
   import { loader as adminUsersLoader } from './pages/admin/Users';
@@ -146,7 +147,8 @@ const router = createBrowserRouter([
     children: [
       {
         index:true,
-        element: <AdminHome />
+        element: <AdminHome />,
+        loader: adminHomeLoader
       },
       {
         path:"events",

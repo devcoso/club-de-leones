@@ -80,14 +80,13 @@
 
         <!-- Descripción del evento -->
         <div class="content">
-            <p>Por su destacada participación en el evento <span class="colored">{{ $session->event->name }}</span> el día <span class="colored">{{ date("d/m/Y", strtotime($session->participated_at)) }}</span>
+            <p>Por su destacada participación en el evento <span class="colored">{{ $session->event->name }}</span> el día <span class="colored">{{ date("d/m/Y", strtotime($session->participated_at)) }}</span>,
             @if($session->duration)
-                , donde logró un tiempo de <span class="colored">{{ $session->duration }}</span>
+                donde logró un tiempo de <span class="colored">{{ $session->duration }}</span>.
             @else
-                .
+                donde demostró su esfuerzo y dedicación.
             @endif
             </p>
-            <p>Este diploma reconoce el esfuerzo y dedicación del participante en esta actividad deportiva.</p>
             <p class="footer"> <span class="colored">{{ $session->event->branch->name }}</span> ubicado en {{ $session->event->branch->location }}</p>
         </div>
 

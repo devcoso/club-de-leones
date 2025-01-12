@@ -27,6 +27,9 @@ Route::group([
     'prefix' => 'admin',
     'middleware' => ['auth:sanctum', 'IsAdmin']
 ], function () {
+    // Home
+    Route::get('/home', [UserController::class, 'adminHome']);
+
     // Event Types
     Route::post('/event-type', [EventTypeController::class, 'store']);
     Route::put('/event-type/{id}', [EventTypeController::class, 'update']);
