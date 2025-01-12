@@ -1,18 +1,54 @@
 import { logout } from '../../services/auth'
+import { setTshirtSize as setTshirtSizeUser } from '../../services/users'
+
+import { useState } from 'react'
 
 import { Link, useOutletContext } from 'react-router-dom'
 
 import { Avatar } from 'primereact/avatar'
 import { Tag } from 'primereact/tag'
+import { Dropdown } from 'primereact/dropdown'
 
 function Perfil() {
 
   const { user } = useOutletContext()
+  
+   const [tshirtSizes] = useState(['XS', 'S', 'M', 'L', 'XL', 'XXL']);
+   const [tshirtSize, setTshirtSize] = useState(user.tshirt_size);
+
+
+   const getSeverityTShirt = (type) => {
+    switch (type) {
+        case 'XS':
+            return 'warning';
+        case 'S':
+            return 'info';
+        case 'M':
+            return 'success';
+        case 'L':
+            return 'warning';
+        case 'XL':
+            return 'danger';
+        case 'XXL':
+            return 'danger';
+    }
+  };
 
   const logoutButton = () => {
       logout()
       localStorage.removeItem('token')
+  }
+
+  const handleSetTshirtSize = async (e) => {
+    const response = await setTshirtSizeUser(user.id, e.target.value)
+    if(response.status === 200) {
+      setTshirtSize(e.target.value)
     }
+  }
+    
+  const tshirtItemTemplate = (option) => {
+    return <Tag value={option} severity={getSeverityTShirt(option)} className='text-sm' />;
+  }; 
 
   return (
     <div >
@@ -27,7 +63,8 @@ function Perfil() {
         <p className="text-center text-lg lg:text-xl my-2">Teléfono: <span className='font-bold'>{user.phone_number.slice(0, 2)}-{user.phone_number.slice(2, 6)}-{user.phone_number.slice(6)}</span></p>
         <p className="text-center text-lg lg:text-xl my-2">Fecha de Nacimiento: <span className='font-bold'>{user.birthdate}</span></p>
         <p className="text-center text-lg lg:text-xl my-2">Sexo: <span className='font-bold'>{user.sex_name}</span></p>
-        <p className="text-center text-lg lg:text-xl my-2">Talla de Camisa: <span className='font-bold'>{user.tshirt_size ? user.tshirt_size : 'Sin talla'}</span></p>
+        <p className="text-center text-lg lg:text-xl my-2">Talla de Camisa: <span className='font-bold'>
+            <Dropdown value={tshirtSize} options={tshirtSizes} onChange={handleSetTshirtSize} itemTemplate={tshirtItemTemplate} className='text-sm'  style={{ width: '7rem'}} /></span></p>
         <Link to={'/'} onClick={logoutButton} className="w-full text-ce bg-red-700 py-3 my-10 text-white text-center hover:bg-red-900 max-w-96 mx-auto block font-bold rounded-md shadow-md">Cerrar Sesión</Link>
       </div>
     </div>

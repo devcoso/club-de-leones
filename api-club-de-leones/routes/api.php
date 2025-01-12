@@ -67,9 +67,8 @@ Route::group([
 Route::group([
     'middleware' => ['auth:sanctum']
 ], function () {
-    // Route::get('/events', [UserController::class, 'events']);
-    // Route::post('/events/{id}/sign-up', [UserController::class, 'signUp']);
-    // Route::post('/events/{id}/cancel-sign-up', [UserController::class, 'cancelSignUp']);
+    // Route::get('/my-events', [UserController::class, 'events']);
+    Route::post('/users/my-tshirt-size', [UserController::class, 'setTshirtSize']);
     Route::get('/users/my-members', [UserController::class, 'myMembers']);
     Route::get('/events/{id}', [EventController::class, 'event']);
     Route::post('/events/{id}/sign-up', [EventSessionController::class, 'store']);

@@ -79,4 +79,16 @@ class UserController extends Controller
         ]);
     }
 
+    public function setTshirtSize(Request $request)
+    {
+        $user = User::find($request->user()->id);
+
+        $user->tshirt_size = $request->tshirt_size;
+        $user->save();
+
+        return response()->json([
+            'message' => 'Talla de camiseta asignada correctamente'
+        ]);
+    }
+
 }

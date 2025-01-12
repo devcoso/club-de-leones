@@ -121,3 +121,25 @@ export async function myMembers() {
         return {status: 500, data: {errors: ['Error al conectar con el servidor']}}
     }
 }
+
+export async function setTshirtSize(id, tshirt_size) {
+    try {
+        const url = import.meta.env.VITE_API_URL + `/users/my-tshirt-size`
+        const respuesta = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({tshirt_size})
+        })
+        const data = await respuesta.json()
+        return {
+            status: respuesta.status,
+            data
+        }
+    } catch (error) {
+        console.log(error);
+        return {status: 500, data: {errors: ['Error al conectar con el servidor']}}
+    }
+}
