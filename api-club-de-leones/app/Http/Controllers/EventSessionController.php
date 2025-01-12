@@ -95,9 +95,10 @@ class EventSessionController extends Controller
     }   
 
     public function update(Request $request, $id){
+
         $validator = Validator::make($request->all(), [
-            'paticipated_at' => 'required|date',
-            'duration' => 'required|numeric',
+            'paticipated_at' => 'date|Nullable',
+            'duration' => 'string|Nullable',
         ]);
 
         if($validator->fails()) {
@@ -115,18 +116,62 @@ class EventSessionController extends Controller
             ], 404);
         }
 
-        $eventSession->update([
-            'paticipated_at' => $request->paticipated_at,
-            'duration' => $request->duration,
-        ]);
+        if ($request->has('participated_at')) { // Verifica si existe en la solicitud
+            $eventSession->participated_at = $request->participated_at; // Puede ser null, una cadena vacía o un valor válido
+        }
+        if ($request->has('duration')) { // Verifica si existe en la solicitud
+            $eventSession->duration = $request->duration; // Puede ser null, una cadena vacía o un valor válido
+        }
+
+        $eventSession->save();
 
         return response()->json([
             'event_session' => $eventSession
         ]);
     }
 
-    public function indexByEvent($id)
+    public function indexByEvent(Request $request, $id)
     {
-       // 
+        $event = Event::find($id);
+        if(!$event) {
+            return response()->json([
+                'message' => 'Evento no encontrado'
+            ], 404);
+        }
+        $user = $request->user();
+        $isManager = false;
+        foreach($event->managers as $manager) {
+            if($manager->id == $user->id) {
+                $isManager = true;
+                break;
+            }
+        }
+        if($user->user_type != 2 && !$isManager) {
+            return response()->json([
+                'message' => 'No tienes permisos para ver esta información'
+            ], 403);
+        }
+
+        $eventSessions = EventSession::where('event_id', $id)->get();
+        $eventSessions->load('user');
+
+        // Obtener edad por usuario
+        foreach($eventSessions as $eventSession) {
+            $birthDate = explode("-", $eventSession->user->birthdate);
+            $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[1], $birthDate[2], $birthDate[0]))) > date("md")
+                ? ((date("Y") - $birthDate[0]) - 1)
+                : (date("Y") - $birthDate[0]));
+            $eventSession->user->age = $age;
+        }
+
+        $response = [
+            'event_id' => $event->id,
+            'event_name' => $event->name . ' - ' . $event->id,
+            'sessions' => $eventSessions
+        ];
+
+        return response()->json([
+            'event_sessions' => $response
+        ]);
     }    
 }

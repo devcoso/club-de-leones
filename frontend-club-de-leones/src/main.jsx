@@ -34,6 +34,7 @@ import Page404 from './pages/Page404';
   import Main from './pages/dashboard/Main';
   import Events from './pages/dashboard/Events';
   import Event from './pages/dashboard/Event';
+  import Sessions from './pages/dashboard/Sessions';
   import Branches from './pages/dashboard/Branches';
   import Perfil from './pages/dashboard/Perfil';
   import TrainersAndStudents from './pages/dashboard/TrainersAndStudents';
@@ -53,6 +54,7 @@ import Page404 from './pages/Page404';
   import { loader as trainersAndStudentsLoader } from './pages/dashboard/TrainersAndStudents';
   import { loader as eventsLoader } from './pages/dashboard/Events';
   import { loader as eventLoader } from './pages/dashboard/Event';
+  import { loader as sessionsLoader } from './pages/dashboard/Sessions';
 
 //Actions
   //Auth
@@ -88,6 +90,11 @@ const router = createBrowserRouter([
         path:"event/:id",
         element: <Event />,
         loader: eventLoader
+      },
+      {
+        path:"event/:id/sessions",
+        element: <Sessions />,
+        loader: sessionsLoader
       },
       {
         path:"branches",

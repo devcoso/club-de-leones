@@ -1,5 +1,5 @@
 import {getAll, create, update, remove } from '../../services/event'
-import formatDate from '../../utils/formatDate'
+import {formatDate} from '../../utils/formatDate'
 
 import { useState, useEffect, useRef } from 'react'
 

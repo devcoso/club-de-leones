@@ -67,7 +67,7 @@ function Events() {
         {filteredEvents?.length > 0 ?  (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mx-5 md:mx-20 md:my-12">
             {filteredEvents.map(event =>
-              < EventCard key={event.id} event={event} />
+              <EventCard key={event.id} event={event} />
             )}
           </div>
         )

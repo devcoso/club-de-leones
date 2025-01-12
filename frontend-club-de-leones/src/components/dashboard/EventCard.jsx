@@ -1,3 +1,4 @@
+import { formatDateWithHours } from '../../utils/formatDate'
 
 import { Tag } from 'primereact/tag';
 import { Link } from 'react-router-dom';
@@ -8,31 +9,6 @@ function EventCard({event}) {
     const fechaFin = new Date(event.end_date)
     const fechaLimite = new Date(event.sign_up_deadline)
     const isValidSignUp = new Date() < fechaLimite
-
-    const monthDict = [
-        'Enero',
-        'Febrero',
-        'Marzo',
-        'Abril',
-        'Mayo',
-        'Junio',
-        'Julio',
-        'Agosto',
-        'Septiembre',
-        'Octubre',
-        'Noviembre',
-        'Diciembre'
-    ]
-
-    const formatDateWithHours = (fecha) => {
-        const dia = String(fecha.getDate()).padStart(2, '0');
-        const mes = monthDict[fecha.getMonth()]
-        const año = fecha.getFullYear();
-        const horas = String(fecha.getHours()).padStart(2, '0');
-        const minutos = String(fecha.getMinutes()).padStart(2, '0');
-    
-        return `${dia} de ${mes} del ${año} a las ${horas}:${minutos}`;
-    };
 
     return (
         <div className='bg-white shadow-lg p-5 rounded-md space-y-3'>

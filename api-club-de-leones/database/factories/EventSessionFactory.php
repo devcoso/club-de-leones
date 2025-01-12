@@ -19,9 +19,9 @@ class EventSessionFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::where('user_type', 3)->get()->random()->id,
+            'user_id' => User::get()->random()->id,
             'event_id' => Event::all()->random()->id,
-            'participated_at' => $this->faker->dateTime(),
+            'participated_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'duration' => $this->faker->time(),
             'notes' => $this->faker->text(),
         ];

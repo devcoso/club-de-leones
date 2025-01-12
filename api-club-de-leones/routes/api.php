@@ -9,7 +9,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventSessionController;
 use App\Http\Controllers\TrainerController;
-use App\Models\EventSession;
 
 // Auth routes
 Route::group([
@@ -75,6 +74,8 @@ Route::group([
     Route::get('/events/{id}', [EventController::class, 'event']);
     Route::post('/events/{id}/sign-up', [EventSessionController::class, 'store']);
     Route::post('/events/{id}/sign-off', [EventSessionController::class, 'destroy']);
+    Route::get('/events/{id}/sessions', [EventSessionController::class, 'indexByEvent']);
+    Route::put('/events/sessions/{session_id}', [EventSessionController::class, 'update']);
 });
 
 // Public routes
