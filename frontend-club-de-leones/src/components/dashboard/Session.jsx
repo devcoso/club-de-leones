@@ -1,3 +1,5 @@
+import { getPDF } from '../../services/session'
+
 import { Button } from 'primereact/button'
 import { formatDateWithHours } from '../../utils/formatDate'
 
@@ -7,6 +9,18 @@ function Session({session}) {
     const fechaInscripcion = formatDateWithHours(new Date(session.created_at))
     const fechaParticipacion = session.participated_at ? formatDateWithHours(new Date(session.participated_at)) : 'No has participado'    
     const duracion = session.duration ? `${session.duration}` : 'No se ha registrado la duración'
+
+    const handleGetPDF = async () => {
+        const response = await getPDF(session.id)
+        if(response.status === 200){
+            const file = new Blob([response.data], {type: 'application/pdf'})
+            const fileURL = URL.createObjectURL(file)
+            const a = document.createElement('a')
+            a.href = fileURL
+            a.download = response.filename
+            a.click()
+        }
+    }
 
   return (
     <div className='flex flex-col gap-4'>
@@ -27,9 +41,9 @@ function Session({session}) {
                 <span className='font-bold'>Duración</span>
                 <span>{duracion}</span>
             </div>
-            <Button disabled={!session.participated_at} className='flex flex-col gap-2 justify-center items-center text-white bg-primary hover:bg-primary-dark p-7 rounded shadow-lg'>    
-                    <i className="pi pi-fw pi-file text-4xl"></i>
-                    <span className='font-bold'>Diploma de participación</span>
+            <Button onClick={handleGetPDF} disabled={!session.participated_at} className='flex flex-col gap-2 justify-center items-center text-white bg-primary hover:bg-primary-dark p-7 rounded shadow-lg'>    
+                <i className="pi pi-fw pi-file text-4xl"></i>
+                <span className='font-bold'>Diploma de participación</span>
             </Button>
         </div>
     </div>

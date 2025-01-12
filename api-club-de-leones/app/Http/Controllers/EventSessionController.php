@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\EventSession;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Event;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class EventSessionController extends Controller
 {
@@ -174,4 +175,53 @@ class EventSessionController extends Controller
             'event_sessions' => $response
         ]);
     }    
+
+
+    public function pdf(Request $request, $id)
+    {
+        $session = EventSession::find($id);
+        if(!$session) {
+            return response()->json([
+                'message' => 'Sesión no encontrada'
+            ], 404);
+        }
+        if($session->user_id != $request->user()->id) {
+            return response()->json([
+                'message' => 'No tienes permisos para ver esta información'
+            ], 403);
+        }
+        if($session->participated_at == null) {
+            return response()->json([
+                'message' => 'No se ha registrado la asistencia'
+            ], 400);
+        }
+
+        $session->load('event');
+        $session->load('user');
+        $formattedTime = $session->duration ?? null;
+
+        if($session->duration != null) {
+            // Separar las horas, minutos y segundos
+            list($hours, $minutes, $seconds) = explode(":", $session->duration);
+
+            // Formatear la salida
+            if($hours == 0) {
+                $formattedTime = $minutes . " minutos y " . $seconds . " segundos";
+                if($minutes == 0) {
+                    $formattedTime = $seconds . " segundos";
+                }
+            } else {
+                $formattedTime = $hours . " horas, " . $minutes . " minutos y " . $seconds . " segundos";
+            }
+        }
+
+        $session->duration = $formattedTime;
+
+        // Generar el PDF usando la vista Blade
+        $pdf = Pdf::loadView('template_pdf_participate', [
+            'session' => $session
+        ]); 
+        $pdf->setPaper('a4', 'landscape');
+        return $pdf->download('Diploma de participación ' . $session->event->name . '.pdf');
+    }
 }

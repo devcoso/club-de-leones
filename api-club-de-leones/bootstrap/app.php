@@ -24,6 +24,13 @@ return Application::configure(basePath: dirname(__DIR__))
 
         //
     })
+    ->withProviders([
+        Barryvdh\DomPDF\ServiceProvider::class,  // Agregar proveedor de DomPDF
+        // Otros proveedores de servicios que tu aplicación necesite
+    ])
     ->withExceptions(function (Exceptions $exceptions) {
         //
-    })->create();
+    })
+    ->create();
+
+

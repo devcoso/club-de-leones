@@ -82,3 +82,35 @@ export async function getAllSessionsByEvent($id){
         return {status: 500, data: {message: 'Error al conectar con el servidor'}}
     }
 }
+
+export async function getPDF($id){
+    try {
+        const url = import.meta.env.VITE_API_URL + `/events/sessions/${$id}`
+        const respuesta = await fetch(url, {
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        
+        const data = await respuesta.blob()
+        respuesta.headers.forEach((value, name) => {
+            console.log(`${name}: ${value}`);
+          });
+        const contentDisposition = respuesta.headers.get('content-disposition') || '';
+        const fileName = contentDisposition.split(';')[1].split('filename=')[1].trim().replace(/"/g, '');
+
+        const size = respuesta.headers.get('content-length');
+        console.log(fileName);
+        return {
+            status: respuesta.status,
+            data,
+            filename: fileName,
+            size
+        }
+    }
+    catch (error) {
+        console.log(error);
+        return {status: 500, data: {message: 'Error al conectar con el servidor'}}
+    }
+}

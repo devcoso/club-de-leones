@@ -40,6 +40,6 @@ class Event extends Model
     public function participants()
     {
         return $this->belongsToMany(User::class, 'event_sessions', 'event_id', 'user_id')
-            ->withPivot('participated_at', 'created_at', 'updated_at', 'duration', 'notes');
+            ->withPivot('id' ,'participated_at', 'created_at', 'updated_at', 'duration', 'notes');
     }
 }

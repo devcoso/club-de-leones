@@ -76,6 +76,7 @@ Route::group([
     Route::post('/events/{id}/sign-off', [EventSessionController::class, 'destroy']);
     Route::get('/events/{id}/sessions', [EventSessionController::class, 'indexByEvent']);
     Route::put('/events/sessions/{session_id}', [EventSessionController::class, 'update']);
+    Route::get('/events/sessions/{session_id}', [EventSessionController::class, 'pdf']);
 });
 
 // Public routes
