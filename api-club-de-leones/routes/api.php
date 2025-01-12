@@ -70,7 +70,7 @@ Route::group([
 Route::group([
     'middleware' => ['auth:sanctum']
 ], function () {
-    // Route::get('/my-events', [UserController::class, 'events']);
+    Route::get('/main', [UserController::class, 'main']);
     Route::post('/users/my-tshirt-size', [UserController::class, 'setTshirtSize']);
     Route::get('/users/my-members', [UserController::class, 'myMembers']);
     Route::get('/events/{id}', [EventController::class, 'event']);

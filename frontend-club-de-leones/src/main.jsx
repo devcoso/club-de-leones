@@ -18,7 +18,8 @@ import AdminLayout from './layouts/AdminLayout';
 //Pages
 import Home from './pages/Home';
 import LoaderPage from './pages/LoaderPage';
-import Page404 from './pages/Page404';
+import ErrorPage from './pages/ErrorPage';
+
   //Auth
   import Login from './pages/auth/Login';
   import Register from './pages/auth/Register';
@@ -51,6 +52,7 @@ import Page404 from './pages/Page404';
   import { loader as adminUsersLoader } from './pages/admin/Users';
   import { loader as adminEventsLoader } from './pages/admin/Events';
   //Dashboard
+  import { loader as mainLoader } from './pages/dashboard/Main';
   import { loader as branchesLoader } from './pages/dashboard/Branches';
   import { loader as trainersAndStudentsLoader } from './pages/dashboard/TrainersAndStudents';
   import { loader as eventsLoader } from './pages/dashboard/Events';
@@ -72,7 +74,8 @@ import Page404 from './pages/Page404';
 const router = createBrowserRouter([
   {
     index:true,
-    element: <Home />
+    element: <Home />,
+    errorElement : <ErrorPage />
   },
   {
     path: "dashboard",
@@ -80,7 +83,8 @@ const router = createBrowserRouter([
     children: [
       {
         index:true,
-        element: <Main />
+        element: <Main />,
+        loader: mainLoader
       },
       {
         path:"events",
@@ -112,7 +116,8 @@ const router = createBrowserRouter([
         loader: trainersAndStudentsLoader
       },
     ],
-    loader: dashboardLoader
+    loader: dashboardLoader,
+    errorElement : <ErrorPage />
   },
   {
     path: "auth",
@@ -139,7 +144,8 @@ const router = createBrowserRouter([
         action: resetPasswordAction,
       }
     ],
-    loader: authLoader
+    loader: authLoader,
+    errorElement : <ErrorPage />
   },
   {
     path: "admin",
@@ -174,7 +180,8 @@ const router = createBrowserRouter([
         loader: adminUsersLoader
       }
     ],
-    loader: adminLoader
+    loader: adminLoader,
+    errorElement : <ErrorPage />
   },
 ]);
 

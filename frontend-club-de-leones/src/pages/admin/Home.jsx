@@ -1,18 +1,18 @@
-import { useLoaderData } from "react-router-dom";
 import { adminHome } from "../../services/users";
 
-import { useState } from 'react';
+import { redirect, useLoaderData } from "react-router-dom";
 
 import { Chart } from 'primereact/chart';
 
 
 export async function loader() {
   const response = await adminHome()
-  return response
+  if(response.status !== 200) return redirect('/auth')
+  return response.data
 }
 
 function Home() {
-  const { data } = useLoaderData()
+  const data = useLoaderData()
 
   const userDataChart = {
     labels: ['Miembros', 'Administradores', 'Entrenadores'],

@@ -115,4 +115,23 @@ class UserController extends Controller
         ]);
     }
 
+    public function main(Request $request)
+    {
+        $user = $request->user();
+        $branch = $user->branch;
+        $events = Event::where('branch_id', $branch->id)->orderBy('id', 'desc')->limit(6)
+        ->with('type')
+        ->with('branch')
+        ->get();
+        $my_events = EventSession::where('user_id', $user->id)->with('event')
+        ->with('event.type')
+        ->with('event.branch')
+        ->orderBy('id', 'desc')->limit(6)->get();
+
+        return response()->json([
+            'branch_events' => $events,
+            'my_events' => $my_events,
+            'branch' => $branch
+        ]);
+    }   
 }
