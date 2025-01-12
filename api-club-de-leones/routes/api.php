@@ -79,10 +79,9 @@ Route::group([
     Route::get('/events/{id}/sessions', [EventSessionController::class, 'indexByEvent']);
     Route::put('/events/sessions/{session_id}', [EventSessionController::class, 'update']);
     Route::get('/events/sessions/{session_id}', [EventSessionController::class, 'pdf']);
+    Route::get('/event-type', [EventTypeController::class, 'index']);
+    Route::get('/events', [EventController::class, 'index']);
 });
 
 // Public routes
-Route::get('/event-type', [EventTypeController::class, 'index']);
 Route::get('/branch', [BranchController::class, 'index']);
-Route::get('/branch/{id}', [BranchController::class, 'show']);
-Route::get('/events', [EventController::class, 'index']);

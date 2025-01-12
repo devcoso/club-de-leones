@@ -87,19 +87,4 @@ class BranchController extends Controller
             'message' => 'Sucursal no encontrada'
         ], 404);
     }
-
-    public function show($id) {
-        $branch = Branch::find($id);
-
-        if ($branch) {
-            return response()->json([
-                'branch' => $branch
-            ]);
-        }
-
-        return response()->json([
-            'message' => 'Sucursal no encontrada'
-        ], 404);
-    }
-
 }
