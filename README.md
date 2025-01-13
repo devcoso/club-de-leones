@@ -25,7 +25,7 @@ composer install
 - Para iniciar tu ambiente, y cada vez que haya cambios en migraciones recuerda correr.
   + Si hay un error de conexión con tu db, puede ser un error en tus variables de entorno, credenciales o faltas de drivers en php.ini.
 ```bash
-php artisan migrate
+php artisan migrate --seed
 ```
 - La primera vez, deberás generar una key que sirve para la autenticacion por tokens.
 ```bash
