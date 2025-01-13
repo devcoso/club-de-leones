@@ -44,7 +44,7 @@ function Home() {
           ) : (
             <div className='flex flex-col md:flex-row items-center gap-5'>
               <Link to='/auth' className='bg-primary text-white px-5 py-2 rounded-lg font-bold hover:bg-primary-dark transition-colors'>Iniciar sesión</Link>
-              <Link to='/auht/register' className='bg-primary text-white px-5 py-2 rounded-lg font-bold hover:bg-primary-dark transition-colors'>Registrarse</Link>
+              <Link to='/auth/register' className='bg-primary text-white px-5 py-2 rounded-lg font-bold hover:bg-primary-dark transition-colors'>Registrarse</Link>
             </div>
           )}
         </div>
